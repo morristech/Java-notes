@@ -1,10 +1,55 @@
-## MySQL Tutorials
+# MySQL Tutorials
 
-### 1、概述
+## 0、性能优化
+
+- 尽量使用TINYINT、SMALLINT、MEDIUM_INT作为整数类型而非INT，如果非负则加上UNSIGNED
+- VARCHAR的长度只分配真正需要的空间
+- 使用枚举或整数代替字符串类型
+- 尽量使用TIMESTAMP而非DATETIME
+- 单表不要有太多字段，建议在20以内
+- 避免使用NULL字段，很难查询优化且占用额外索引空间（理由:Mysql 难以优化引用了可空列的查询，空列会使索引，索引统计和值更加复杂，可空列需要更多的存储空间。一般来说，设置默认值（DEFAULT)是个比较好的习惯。当然该条对Mysql表性能的提升影响不是很大，不应放在最优先考虑的地位。）
+- 用整型来存IP
+
+习惯：
+
+- 表、列名必须有注释
+- 命名必须规范，由数字、字母和_组成，不能使用空格，不能使用关键字TYPE、STATUS等
+- 命名长度不超过20
+- 表中需要有CREATE_TIME、UPDATE_TIME等，格式：’2016-12-22 00:00:00.0’
+- 默认值，数字类型价格字段默认值为0，字符串默认值为’ ‘，日期默认值为当前时间或’1900-0-01 00:00:00.0’
+- 默认字符编码为utf8(或者utf8mb4)，默认存储引擎为INNODB
+
+索引
+
+- 索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描
+- 应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描
+- 值分布很稀少的字段不适合建索引，例如"性别"这种只有两三个值的字段
+- 字符字段只建前缀索引
+- 字符字段最好不要做主键
+- 不用外键，由程序保证约束
+- 尽量不用UNIQUE，由程序保证约束
+- 使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引
+
+查询
+
+- 可通过开启慢查询日志来找出较慢的SQL
+- 不做列运算：SELECT id WHERE age + 1 = 10，任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边
+- sql语句尽可能简单：一条sql只能在一个cpu运算；大语句拆小语句，减少锁时间；一条大sql可以堵死整个库
+- 不用SELECT *
+- OR改写成IN：OR的效率是n级别，IN的效率是log(n)级别，in的个数建议控制在200以内
+- 不用函数和触发器，在应用程序实现
+- 避免%xxx式查询
+- 少用JOIN
+- 使用同类型进行比较，比如用'123'和'123'比，123和123比
+- 尽量避免在WHERE子句中使用!=或<>操作符，否则将引擎放弃使用索引而进行全表扫描
+- 对于连续数值，使用BETWEEN不用IN
+- 列表数据不要拿全表，要使用LIMIT来分页，每页数量也不要太大
+
+## 1、概述
 
 目前属于Oracle，分成`社区版和企业版`，`关系型数据库`。
 
-#### 1.1 目录结构
+### 1.1 目录结构
 
 1. bin：存储可执行文件
 2. data：存储数据文件
@@ -15,44 +60,44 @@
 
 配置文件：`my.ini`
 
-#### 1.2 启动和停止
+### 1.2 启动和停止
 
 在win cmd中使用`net start/sop mysql`来启动和停止mysql服务
 
-#### 1.3 登入和登出
+### 1.3 登入和登出
 
-**1.3.1 登入**：
+#### 1.3.1 登入
 
     mysql -uuer_name -ppassword -Pport -hhost
 
 可以只使用`mysql -uuser_name -ppasswrod`来开启，后面的可以使用默认的值。`-P`是指端口号，默认3306。`-h`是指地址，默认127.0.0.1。
 
-**1.3.2 登出**：
+#### 1.3.2 登出
 
 在MySQL命令窗口输入：`exit`, `quit`和`\q`之中任意一个即可。
 
-#### 1.4 修改输入提示符
+### 1.4 修改输入提示符
 
 在登入时，通过`-prompt`来指定提示符，或者在处于命令行时使用`prompt`来指定。
 
 在指定提示符的时候可以使用`\D`, `\d`, `\h`和`\u`来指示提示符显示当前的日期、数据库、服务器和用户。
 
-#### 1.5 查询数据库信息
+### 1.5 查询数据库信息
 
 使用`SELECT VERSION()`, `SELECT NOW()`, `SELECT USER()`, `SELECT DATABASE()`可以分别用来显示当前的数据库版本、时间、操作用户和数据库。
 
-#### 1.6 注释
+### 1.6 注释
 
 1. 行注释：`--`
 2. 多行注释：`/**/`
 
-#### 1.7 约定
+### 1.7 约定
 
 数据库操作指令大写；数据库相关的名称小写，且单词之间用下划线分开。
 
-### 2、数据库操作
+## 2、数据库操作
 
-#### 2.1 创建
+### 2.1 创建
 
     CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name 
     [DEFAULT] CHARACTER SET [=] character_name
@@ -62,31 +107,31 @@
 2. `CHARACTER SET [=] character_name`用来指定数据库的字符编码方式。
 3. 有了`IF NOT EXISTS`当指定数据库已经存在的时候，就不会报错了，否则会报错，但是报的错还是可以查找到的。
 
-#### 2.2 显示创建数据库的SQL语句
+### 2.2 显示创建数据库的SQL语句
 
     SHOW CREATE DATABASE db_name;
 
 类似的，还有显示表的创建的SQL语句：`SHOW CREATE TABLE tbl_name;`
 
-#### 2.3 修改
+### 2.3 修改
 
 修改数据库的字符编码方式的语句：
 
     ALTER {DATABASE|SCHEMA} [DEFAULT] CHARACTER SET [=] charset_name;
 
-#### 2.4 删除
+### 2.4 删除
 
     DROP {DATABASE|SCHEMA} [IF EXISTS] db_name
 
-#### 2.5 显示当前所有数据库
+### 2.5 显示当前所有数据库
 
     SHOW DATABASES;
 
 类似的，有`SHOW TABLES [FROM db_name]`用于显示当前数据库（或指定数据库）下面的所有表。
 
-### 3、数据类型
+## 3、数据类型
 
-#### 3.1 整型
+### 3.1 整型
 
 整数分为有符号和无符号的，通过`UNSIGNED`指定。（取值范围和C语言中的类型范围一样）
 
@@ -96,15 +141,15 @@
 4. INT：4字节
 5. BIGINT：8字节
 
-#### 3.2 浮点型
+### 3.2 浮点型
 
-浮点数也分为有符号的和无符号的。如下所示，前面的n指定了总的位数，后面的m指定了小数的位数，所以整数位数为m-n. 和C语言中的float和double范围一样。
+浮点数也分为有符号的和无符号的。如下所示，前面的m指定了总的位数，后面的n指定了小数的位数，所以整数位数为m-n. 和C语言中的float和double范围一样。
 
 1. FLOAT[(m,n)]：
 2. DOUBLE[(m,n)]：
 3. DECIMAL[(m,n)]：适用于高精度要求的场景
 
-#### 3.3 时间类型
+### 3.3 时间类型
 
 1. TEAR：1字节，格式YYYY，范围1901-2155，零值0000
 2. TIME：3字节，格式HH:MM:SS，范围-838:59:59-838:59:59，零值00:00:00
@@ -114,7 +159,7 @@
 
 或者使用时间戳，用BIGINT保存指定时间的毫秒值。
 
-#### 3.4 字符型
+### 3.4 字符型
 
 1. CHAR(m)：m字节，0<=m<=255
 2. VARCHAR(m)：L+1字节，L<=m<=65535
@@ -125,74 +170,74 @@
 7. ENUM('val1', 'val2', ...)：枚举类型，取决于枚举个数，最多65535
 8. SET('val1', 'val2', ...)：主要用于对枚举进行组合选择
 
-### 4、数据表的操作
+## 4、数据表的操作
 
-#### 4.1 创建数据表
+### 4.1 创建数据表
 
     CREATE TABLE [IF NOT EXISTS] table_name (
         column_name data_type, 
         ...
     );
 
-#### 4.2 查看数据库的表
+### 4.2 查看数据库的表
 
 查看指定数据库的所有的表
 
     SHOW TABLES [FROM db_name][LIKE 'pattern'|WHERE expr];
 
-#### 4.3 查看列定义
+### 4.3 查看列定义
 
 显示指定表的各个列的定义：
 
     SHOW COLUMNS FROM tbl_name;
 
-#### 4.4 约束
+### 4.4 约束
 
-**4.4.1 表的空和非空**
+#### 4.4.1 表的空和非空
 
 在创建表的时候，在定义列的后面加上`NOT NULL`来指定指定的列不可为空。这样的列在插入记录的时候必须对其进行赋值。
 
-**4.4.2 自增**
+#### 4.4.2 自增
 
 自动编号，必须与主键组合使用。通过在创建表的时候在列定义后加入`AUTO_INCREMENT`来实现。此外，可以通过`ALTER TABLE users AUTO_INCREMENT = 10000;`来指定自增的开始值。
 
-**4.4.3 主键**
+#### 4.4.3 主键
 
 必须保证唯一性，一个表只能有一个，非NULL。创建表的时候使用`PRIMARY KEY`来指定列是主键。
 
-**4.4.4 唯一约束**
+#### 4.4.4 唯一约束
 
 必须保证唯一性，一个表可以有多个，可以是NULL的。创建表的时候使用`UNIQUE KEY`来指定列是唯一的。
 
-**4.4.5 默认约束**
+#### 4.4.5 默认约束
 
 当指定的列没有指定值的时候就使用默认的值，在创建表的时候，通过使用`DEFAULT`关键字来指定列的默认值。
 
-**4.4.6 外键约束**
+#### 4.4.6 外键约束
 
 在实际开发过程中更多地使用逻辑外键而不是物理外键，就是只要保证表之间的关联关系就好，而不为表设置外键。因为外键要求创建表的时候，父表和子表都必须使用INNODB引擎。
 
-#### 4.5 修改表
+### 4.5 修改表
 
-**4.5.1 添加单列**
+#### 4.5.1 添加单列
 
     ALTER TABLE tbl_name ADD [COLUMN] col_name col_def [FIRST|AFTER col_name]
 
 向指定的表中加入一列。通过`FIRST`指定新加入的列处于所有列的最前方，通过`AFTER col_name`指定新加入的列相对于某个列的位置。
 
-**4.5.2 添加多个列**
+#### 4.5.2 添加多个列
 
     ALTER TABLE tbl_name ADD [COLUMN] (col_name col_def[, col_name col_def, ...])
 
 当向表中添加多个列的时候，只能将新加入列放在表的最后面的位置。
 
-**4.5.3 删除列**
+#### 4.5.3 删除列
 
     ALTER TABLE tbl_name DROP [COLUMN] col_name[, col_name, ...]
 
 可以指定并删除多个列。
 
-**4.5.4 添加约束**
+#### 4.5.4 添加约束
 
     ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] PRIMARY KEY [index_type](index_col_name)
 
@@ -200,13 +245,13 @@
 
 上面的两条语句分别用来向指定的表中的列加入主键和唯一性约束。示例`ALTER TABLE temp ADD UNIQUE(name)`（列名上要加括号）。加入了主键和唯一性约束的同时会为指定的列加上索引，所以可以使用`index_type`来指定索引的类型。要为MySQL设置默认的索引，到`my.ini`中的`default-storage-engine`中进行设置即可。另外，可以使用`SHOW INDEXES FROM tbl_name`查看指定表中存在的索引。
 
-**4.5.5 删除约束**
+#### 4.5.5 删除约束
 
     ALTER TABLE tbl_name DROP PRIMARY KEY;
 
     ALTER TABLE DROP {INDEX|KEY} col_name;
 
-**4.5.6 修改表定义**
+#### 4.5.6 修改表定义
 
     ALTER TABLE tbl_name MODIFY [COLUMN] col_name col_def [FIRST|AFTER col_name]
 
@@ -216,20 +261,20 @@
 
 上面的修改语句的适用范围更广，它可以修改的范围包括：列的数据类型、约束、位置和名称。
 
-**4.5.7 修改表名**
+#### 4.5.7 修改表名
 
     ALTER TABLE tbl_name RENAME [TO|AS] new_tbl_name 
 
     RENAME TABLE tbl_anem TO new_tbl_name [, tbl_name TO new_tbl_name...]
 
-**4.5.8 增加索引**
+#### 4.5.8 增加索引
 
 1. 主键索引, 添加PRIMARY KEY：`ALTER TABLE tbl_name ADD PRIMARY KEY (col_name)`
 2. 唯一索引, 添加UNIQUE：`ALTER TABLE tbl_name ADD UNIQUE (col_name)`
 3. 普通索引, 添加INDEX：`ALTER TABLE tbl_name ADD INDEX index_name (col_name)`
 4. 全文索引, 添加FULLTEXT: `ALTER TABLE tbl_name ADD FULLTEXT (col_name)`
 5. 多列索引: `ALTER TABLE tbl_name ADD INDEX index_name (col_name1, col_name2, ..)`
-### 5、插入操作
+## 5、插入操作
 
 向表中插入记录
 
@@ -243,7 +288,7 @@
 
 将查询结果插入到指定的表中。比如`INSERT INTO temp (name) SELECT name FROM assignment`
 
-### 6、更新操作
+## 6、更新操作
 
     UPDATE [LOW_PRIORITY] [IGNORE] table_reference 
     SET col_name1 = {expr|DEFAULT} [, col_name2 = {expr|DEFAULT}] ... 
@@ -251,12 +296,12 @@
 
 没有指定WHERE语句，就对整个表的全部记录进行更新。
 
-### 7、删除操作
+## 7、删除操作
 
     DELETE FROM tbl_name [WHERE where_condition]
 
 
-### 8、查找
+## 8、查找
 
 	SELECT select_expr [, select_expr ...] 
 	[
@@ -268,28 +313,28 @@
 		[LIMIT {[offset,] row_count | row_count OFFSET offset}]
 	]
 
-#### 8.1 查找不同值
+### 8.1 查找不同值
 
 将`DISTINCT`关键字放在指定的列前面，用于检索指定的列的不同的值。比如，`select count(distinct cust_id) from orders;`。
 
 `DISTINCT`作用于所有的列，而不是其后的那一列。比如，`select count(distinct cust_id, order_num) from orders;`将搜索出cust_id不同并且order_num不同的列。
 
-#### 8.2 限制结果集、分页
+### 8.2 限制结果集、分页
 
     select * from orders limit 2 offerset 2;  
     select * from orders limit 2 , 2;
 
 类似于上面这样，前面的数字2表示查询的数目条数，后面的2表示从哪个位置开始。所以，上面的效果是查询第2条和第3条数据。但是，要注意的是数据库中条的编号的起始位置是0。如果不指定第二个2将查出所有数据中前两个记录。
 
-#### 8.3 排序结果集
+### 8.3 排序结果集
 
 使用`ORDER BY`语句。可以指定多个列进行排序，可以为要排序的列指定排序的方向，使用`ASC`表示增序排列，使用`DESC`表示降序排列。默认，升序排列。除了使用列名来指定要排序的列，害可以使用列的在查询的所有列中的位置来指定排序的列。
 
 `DESC`只应用到直接位于其前面的列，如果要为多个列进行降序，就应该每个列后面加上`DESC`。
 
-#### 8.4 过滤结果集
+### 8.4 过滤结果集
 
-**8.4.1 WEHER子句操作符**
+#### 8.4.1 WEHER子句操作符
 
 1. 等于 `=`
 2. 不等于 `<>`和`!=`
@@ -302,7 +347,7 @@
 
     SELECT * FROM orders WHERE order_num BETWEEN 20006 AND 30000;
 
-**8.4.2 AND和OR操作符**
+#### 8.4.2 AND和OR操作符
 
 使用AND和OR操作符的时候要注意优先级是`AND>OR`。比如，
 
@@ -321,25 +366,25 @@
 
 因此就要在OR操作符上面增加圆括号。
 
-**8.4.3 IN操作符**
+#### 8.4.3 IN操作符
 
     select * from orders where order_num in (20006, 20005);  
 
 IN操作符其实完成的操作和OR一样。
 
-**8.4.4 NOT操作**
+#### 8.4.4 NOT操作
 
     select * from orders where not order_num = 20005;
 
 如上所示将not操作加在where条件的前面可以表示对条件的反。上面的效果就相当于`where order_num != 20005`
 
-**8.4.5 exists**
+#### 8.4.5 exists
 
     select * from orders t 
     where 1 = 1 
     and exists(select * from customers where cust_id = t.cust_id);
 
-**8.4.6 like**
+#### 8.4.6 like
 
     select * from products where prod_name like '%doll';
 
@@ -347,25 +392,25 @@ IN操作符其实完成的操作和OR一样。
 
 通配符%可以用来匹配除NULL意外的记录，即`WHERE prod_name like '%'`不会找出prod_name为NULL的记录。
 
-**8.4.7 下划线**
+#### 8.4.7 下划线
 
 下划线用来匹配指定数量的字符。一个下划线匹配一个字符。
 
-#### 8.5 创建计算字段
+### 8.5 创建计算字段
 
-**8.5.1 拼接字符串**
+#### 8.5.1 拼接字符串
 
     select concat(cust_name,':',cust_city) from customers;
 
 如上所示，使用concat函数可以将查询结果拼接起来。
 
-**8.5.2 使用别名**
+#### 8.5.2 使用别名
 
     select concat(cust_name,':',cust_city) as cust_city from customers;
 
 如上所示，使用`AS`操作符来将拼接的字符串命名为cust_city.
 
-**8.5.3 使用正则表达式**
+#### 8.5.3 使用正则表达式
 
 下面的是使用正则表达式对数据进行过滤的例子，即可以将REGEXP像like一样使用，并在REGEXP后面加上正则表达式即可。下面的表达式检索出的结果是，customers中所有cust_name中包含'Fun'的记录。
 
@@ -375,9 +420,9 @@ IN操作符其实完成的操作和OR一样。
 
     select * from products where prod_name regexp '[812] inch'
 
-#### 8.6 分组数据
+### 8.6 分组数据
 
-**8.6.1 分组过滤GROUP BY**
+#### 8.6.1 分组过滤GROUP BY
 
     select order_num, count(order_num) from orderitems group by order_num;
 
@@ -411,7 +456,7 @@ IN操作符其实完成的操作和OR一样。
     where i.order_num = o.order_num and c.cust_id = o.cust_id
     group by c.cust_id;
 
-**8.6.2 过滤分组HAVING**
+#### 8.6.2 过滤分组HAVING
 
     select sum(quantity * item_price) as total 
     from orderitems 
@@ -420,7 +465,7 @@ IN操作符其实完成的操作和OR一样。
 
 如上所示，我们使用`HAVING`语句来对分组之后的结果进行过滤。上面是找出总价值在1000以上的分组。
 
-#### 8.7 子查询
+### 8.7 子查询
 
 下面的使用了子查询的语句执行的结果与上面的一样：指定名称用户的总额。
 
@@ -434,7 +479,7 @@ IN操作符其实完成的操作和OR一样。
 
 子查询的另一种是用方式是将子查询的结果放在一个IN中作为取值范围。
 
-#### 8.8 联结表
+### 8.8 联结表
 
 所谓的联结可以理解成按照指定的方式将两个或者多个表组合起来，形成一个类似于新的表。因为MySQL是关系型数据库，所以经常会在多个表之间存在一对多或者多对多关系，而联结的效果就是将这样的表联结起来。比如，如果两个数据库之间是一对多关系，那么肯定有些字段只存在于父表中，在查询的时候我们要将这些存在于父表中的字段与存在于子表中的字段组合起来，形成一个完整的“数据”，就应该使用联结来实现。
 
@@ -451,11 +496,11 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
 这就相当于我们将B中的与A相关的字段补充了起来。
 
-**8.8.1 等值联结**
+#### 8.8.1 等值联结
 
 联结表的最常见的形式是使用`=`将两表的对应的字段连接起来，这叫做等值联结。
 
-**8.8.2 内联结**
+#### 8.8.2 内联结
 
 下面是使用内联结的一个实现：
 
@@ -465,7 +510,7 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
 内联结相当于对两个表在指定的列上面取交集，即只有两个表中都存在的字段才会进行联结。
 
-**8.8.3 自联结**
+#### 8.8.3 自联结
 
     select *
     from customers as c1, customers as c2
@@ -474,7 +519,7 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
 上面的SQL语句的是自联结的，需要为两个相同的表分别指定一个别名。
 
-**8.8.4 外联结**
+#### 8.8.4 外联结
 
 所谓的外联结，就是指左联结和右联结。它跟内联结不同的地方只在于，以左联结为例，如果左表中被用来指定联结的值在右表中不存在，那么也一样将左表中的记录检索出来，只是右表中指定的字段为NULL。
 
@@ -491,7 +536,7 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
 这里的OUTER是可选的，有没有都行。
 
-**8.8.5 组合查询UNION**
+#### 8.8.5 组合查询UNION
 
     select prod_name from products
     union
@@ -503,7 +548,7 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
 使用UNION组合查询的时候，只能有一条ORDER BY子句，且必须位于最后一条SELECT语句的后面。
 
-### 9、视图
+## 9、视图
 
 视图可以用来简化SQL操作，你可以将一次的查询结果作为一个视图，并为其添加一个名称，比如A。然后，我们可以像使用一个表一样从A中检索出数据。
 
@@ -518,15 +563,15 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
     select * from orderdetail order by cust_id;
 
-### 10、存储过程
+## 10、存储过程
 
 存储过程和视图相似，也是提供一种SQL复用的机制。因为本身视图只能用来将指定的数据检索出来作为数据表一样使用，它本身只能用于“查询”操作，具有一定的局限性。因此，这里有存储过程来将指定功能的SQL封装起来，使其像一个函数一样可以被调用。
 
 存储过程的可移植性比较差，而且需要更高的技能和经验，因此通过被限制创建。
 
-#### 10.1 创建存储过程
+### 10.1 创建存储过程
 
-**10.1.1 创建无参存储过程**
+#### 10.1.1 创建无参存储过程
 
 在MySQL命令行中创建存储过程的示例：
 
@@ -538,7 +583,7 @@ B<sub>0</sub>C<sub>0</sub>, B<sub>0</sub>C<sub>1</sub>, B<sub>0</sub>C<sub>2</su
 
 在这里`delimiter //`的作用是使用`//`而不是';'作为语句分隔符。
 
-**10.1.2 为存储过程添加参数**
+#### 10.1.2 为存储过程添加参数
 
 MySQL支持IN（传递给存储过程）、 OUT（从存储过程传出，如这里所用）和INOUT（对存储过程传入和传出）类型的参数。
 
@@ -560,21 +605,21 @@ MySQL支持IN（传递给存储过程）、 OUT（从存储过程传出，如这
 
     select @price
 
-#### 10.2 使用存储过程
+### 10.2 使用存储过程
 
 没有参数的存储过程的使用示例：
 
     call mypp();
 
-#### 10.3 删除存储过程
+### 10.3 删除存储过程
 
     drop procedure mypp;
 
-#### 10.4 检查存储过程
+### 10.4 检查存储过程
 
     show create procedure avgprice;
 
-### 11、游标
+## 11、游标
 
 MySQL游标只能用于存储过程（和函数）
 
@@ -634,7 +679,7 @@ MySQL游标只能用于存储过程（和函数）
 
 将从游标中得到的数据填充到name中。
 
-### 12、触发器
+## 12、触发器
 
 触发器用来在某事件发生时自动执行，有些类似于监听器的作用。它只能为delete, insert, update三种操作设置触发器。触发器可以设置在指定的操作执行之前或者之后触发。
 
@@ -642,7 +687,7 @@ MySQL游标只能用于存储过程（和函数）
 
 每个表最多设置6个触发器，且同一触发器不能与多个事件或多个表关联。
 
-#### 12.1 创建触发器
+### 12.1 创建触发器
 
 触发器创建的基本语法格式：
 
@@ -669,11 +714,11 @@ MySQL游标只能用于存储过程（和函数）
 
 **update触发器**代码内，可以使用一个名为old的虚拟表，访问更新之前的数据，使用名为new的虚拟表，访问更新的值。
 
-#### 12.2 删除触发器
+### 12.2 删除触发器
 
     DROP TRIGGER 触发器名称：
 
-### 13、事务管理
+## 13、事务管理
 
 事务保证了一系列操作的原子性，只有当执行过程中没有产生错误，并且提交了之后才会将执行的结果反应到数据库上。如果使用了回滚操作将回复到开始事务之前的状态。
 
@@ -693,7 +738,7 @@ MySQL中的数据库引擎分别支持不同类型的事务。
 
     COMMIT;
 
-#### 13.2 创建保留点
+### 13.2 创建保留点
 
 可以使用语句
    
@@ -707,7 +752,7 @@ MySQL中的数据库引擎分别支持不同类型的事务。
 
 通常，保留点越多越好。当提交或者回滚之后，保留点会被自动释放。此外，也可以使用`RELEASE`来主动释放保留点。
 
-#### 13.3 修改默认提交行为
+### 13.3 修改默认提交行为
 
 使用
 
@@ -715,7 +760,7 @@ MySQL中的数据库引擎分别支持不同类型的事务。
 
 来设置不自动提交。
 
-### 14、安全管理
+## 14、安全管理
 
 在MySQL的数据库中存在一个mysql库，那里面的user表用于存储MySQL的用户。
 
@@ -748,9 +793,3 @@ MySQL中的数据库引擎分别支持不同类型的事务。
 为指定的用户修改密码：
 
      set password for shouheng = Password('psd');
-
-
-
-
-
-
