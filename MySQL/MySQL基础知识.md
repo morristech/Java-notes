@@ -62,7 +62,7 @@
 
 ### 1.2 启动和停止
 
-在win cmd中使用`net start/sop mysql`来启动和停止mysql服务
+在win cmd中使用`net start/stop mysql`来启动和停止mysql服务
 
 ### 1.3 登入和登出
 
@@ -94,6 +94,36 @@
 ### 1.7 约定
 
 数据库操作指令大写；数据库相关的名称小写，且单词之间用下划线分开。
+
+### 1.8 关于字符编码
+
+查看数据表的编码格式
+
+    mysql> show create table <表名>;
+
+创建数据库时指定数据库的字符集
+
+    mysql>create database <数据库名> character set utf8;
+
+创建数据表时指定数据表的编码格式
+
+    create table tb_books (
+        name varchar(45) not null,
+        price double not null,
+        bookCount int not null,
+        author varchar(45) not null ) default charset = utf8;
+
+修改数据库的编码格式
+
+    mysql>alter database <数据库名> character set utf8;
+
+修改数据表格编码格式
+
+    mysql>alter table <表名> character set utf8;
+
+修改字段编码格式
+
+    mysql>alter table <表名> change <字段名> <字段名> <类型> character set utf8;
 
 ## 2、数据库操作
 
@@ -274,6 +304,7 @@
 3. 普通索引, 添加INDEX：`ALTER TABLE tbl_name ADD INDEX index_name (col_name)`
 4. 全文索引, 添加FULLTEXT: `ALTER TABLE tbl_name ADD FULLTEXT (col_name)`
 5. 多列索引: `ALTER TABLE tbl_name ADD INDEX index_name (col_name1, col_name2, ..)`
+
 ## 5、插入操作
 
 向表中插入记录
