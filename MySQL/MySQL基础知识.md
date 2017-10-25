@@ -1,50 +1,5 @@
 # MySQL Tutorials
 
-## 0、性能优化
-
-- 尽量使用TINYINT、SMALLINT、MEDIUM_INT作为整数类型而非INT，如果非负则加上UNSIGNED
-- VARCHAR的长度只分配真正需要的空间
-- 使用枚举或整数代替字符串类型
-- 尽量使用TIMESTAMP而非DATETIME
-- 单表不要有太多字段，建议在20以内
-- 避免使用NULL字段，很难查询优化且占用额外索引空间（理由:Mysql 难以优化引用了可空列的查询，空列会使索引，索引统计和值更加复杂，可空列需要更多的存储空间。一般来说，设置默认值（DEFAULT)是个比较好的习惯。当然该条对Mysql表性能的提升影响不是很大，不应放在最优先考虑的地位。）
-- 用整型来存IP
-
-习惯：
-
-- 表、列名必须有注释
-- 命名必须规范，由数字、字母和_组成，不能使用空格，不能使用关键字TYPE、STATUS等
-- 命名长度不超过20
-- 表中需要有CREATE_TIME、UPDATE_TIME等，格式：’2016-12-22 00:00:00.0’
-- 默认值，数字类型价格字段默认值为0，字符串默认值为’ ‘，日期默认值为当前时间或’1900-0-01 00:00:00.0’
-- 默认字符编码为utf8(或者utf8mb4)，默认存储引擎为INNODB
-
-索引
-
-- 索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描
-- 应尽量避免在WHERE子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描
-- 值分布很稀少的字段不适合建索引，例如"性别"这种只有两三个值的字段
-- 字符字段只建前缀索引
-- 字符字段最好不要做主键
-- 不用外键，由程序保证约束
-- 尽量不用UNIQUE，由程序保证约束
-- 使用多列索引时主意顺序和查询条件保持一致，同时删除不必要的单列索引
-
-查询
-
-- 可通过开启慢查询日志来找出较慢的SQL
-- 不做列运算：SELECT id WHERE age + 1 = 10，任何对列的操作都将导致表扫描，它包括数据库教程函数、计算表达式等等，查询时要尽可能将操作移至等号右边
-- sql语句尽可能简单：一条sql只能在一个cpu运算；大语句拆小语句，减少锁时间；一条大sql可以堵死整个库
-- 不用SELECT *
-- OR改写成IN：OR的效率是n级别，IN的效率是log(n)级别，in的个数建议控制在200以内
-- 不用函数和触发器，在应用程序实现
-- 避免%xxx式查询
-- 少用JOIN
-- 使用同类型进行比较，比如用'123'和'123'比，123和123比
-- 尽量避免在WHERE子句中使用!=或<>操作符，否则将引擎放弃使用索引而进行全表扫描
-- 对于连续数值，使用BETWEEN不用IN
-- 列表数据不要拿全表，要使用LIMIT来分页，每页数量也不要太大
-
 ## 1、概述
 
 目前属于Oracle，分成`社区版和企业版`，`关系型数据库`。
@@ -97,6 +52,10 @@
 
 ### 1.8 关于字符编码
 
+查看mysql中当前编码
+
+    show variables like 'char%
+
 查看数据表的编码格式
 
     mysql> show create table <表名>;
@@ -125,6 +84,10 @@
 
     mysql>alter table <表名> change <字段名> <字段名> <类型> character set utf8;
 
+window命令行中中文乱码问题，连接之后使用
+
+    set names gbk;
+
 ## 2、数据库操作
 
 ### 2.1 创建
@@ -136,6 +99,12 @@
 中的`default-character-set`中指定。
 2. `CHARACTER SET [=] character_name`用来指定数据库的字符编码方式。
 3. 有了`IF NOT EXISTS`当指定数据库已经存在的时候，就不会报错了，否则会报错，但是报的错还是可以查找到的。
+
+建立表的时候使用备注：
+
+    CREATE TABLE test_table (
+        test_grade int DEFAULT 1 COMMENT '等级'
+    ) COMMENT = '测试表';
 
 ### 2.2 显示创建数据库的SQL语句
 
@@ -301,7 +270,8 @@
 
 1. 主键索引, 添加PRIMARY KEY：`ALTER TABLE tbl_name ADD PRIMARY KEY (col_name)`
 2. 唯一索引, 添加UNIQUE：`ALTER TABLE tbl_name ADD UNIQUE (col_name)`
-3. 普通索引, 添加INDEX：`ALTER TABLE tbl_name ADD INDEX index_name (col_name)`
+3. 普通索引, 添加INDEX：
+    `ALTER TABLE ADD key(col_name)`以及`ALTER TABLE tbl_name ADD INDEX index_name (col_name)`
 4. 全文索引, 添加FULLTEXT: `ALTER TABLE tbl_name ADD FULLTEXT (col_name)`
 5. 多列索引: `ALTER TABLE tbl_name ADD INDEX index_name (col_name1, col_name2, ..)`
 
