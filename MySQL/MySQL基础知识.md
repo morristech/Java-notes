@@ -150,7 +150,7 @@ window命令行中中文乱码问题，连接之后使用
 
 ### 3.3 时间类型
 
-1. TEAR：1字节，格式YYYY，范围1901-2155，零值0000
+1. YEAR：1字节，格式YYYY，范围1901-2155，零值0000
 2. TIME：3字节，格式HH:MM:SS，范围-838:59:59-838:59:59，零值00:00:00
 3. DATE：4字节，格式YYYY-MM-DD，范围1000-01-01-9999-12-31，零值0000-00-00
 4. DATETIME：8字节，格式YYYY-MM-DD HH:MM:SS，范围1000-01-01 00:00:00-9999-12-31 23:59:59，零值0000-00-00 00:00:00
@@ -309,7 +309,7 @@ window命令行中中文乱码问题，连接之后使用
 		FROM table_references
 		[WHERE where_condition]
 		[GROUP BY {col_name|position} [ASC|DESC], ... ]
-		[HAVING where_condition]
+		[HAVING having_condition]
 		[ORDER BY {col_name|expr|position} [ASC|DESC], ...]
 		[LIMIT {[offset,] row_count | row_count OFFSET offset}]
 	]
@@ -743,7 +743,7 @@ MySQL中的数据库引擎分别支持不同类型的事务。
 
 可以使用语句
    
-    SAVEPOITN 名称;
+    SAVEPOINT 名称;
 
 来创建保留点。在准备回滚的时候，我们可以使用
 
