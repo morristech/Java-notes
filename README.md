@@ -1,8 +1,15 @@
 # Java-编程 整理
 
-该项目系Java编程相关的知识梳理，目的在于整理平时所学习到的一些东西。你可以**Fork**该项目并根据自己的需要添加自己的东西，以此来形成自己的知识体系。
+> Java的学习笔记和整理的知识点，包含Java语言基础、Java服务端方向的框架、设计模式、计算机网络和算法等
 
-## 1、Java语言语法
+## 目录结构
+
+<a href="#java">1.Java语言基础</a>
+<a href="#java_io">2.Java IO</a>
+<a href="#java_con">3.Java 并发编程</a>
+<a href="#java_collection">3.Java 集合框架</a>
+
+<h2 id="java">1、Java语言语法</h2>
 
 1. [Java语言概述](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%A6%82%E8%BF%B0.md)
 2. [运算符](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E8%BF%90%E7%AE%97%E7%AC%A6.md)
@@ -21,6 +28,8 @@
 15. [Java NIO](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/IO/%E6%96%B0IO.md)
 16. [多线程](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E5%B9%B6%E5%8F%91/%E5%A4%9A%E7%BA%BF%E7%A8%8B.md)
 17. [JUC](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E5%B9%B6%E5%8F%91/JUC.md)
+
+<h2 id="java_io">2、Java IO</h2>
 
 ## 2、设计模式
 
