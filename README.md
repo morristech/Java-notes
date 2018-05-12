@@ -1,15 +1,48 @@
 # Java 笔记
 
-> Java 的学习笔记和整理的知识点，包含Java语言基础、Java服务端方向的框架、设计模式、计算机网络、算法、Java 虚拟机和数据库等多个方面的内容。
+> Java 的学习笔记和整理的知识点，包含Java语言基础、Java服务端方向的框架、设计模式、计算机网络、算法、Java 虚拟机和数据库等多个方面的内容。想了解前端的内容参考[这里](https://github.com/Shouheng88/Front-end-notes)，Android相关的内容参考[这里](https://github.com/Shouheng88/Android-notes)。
 
 ## 目录结构
 
-1. <a href="#java">Java 语言基础</a>
-2. <a href="#java_io">Java IO</a>
-3. <a href="#java_con">Java 并发编程</a>
-4. <a href="#java_collection">Java 集合框架</a>
+1. 语言基础和JDK源码阅读
+    1. <a href="#java">Java 语言基础</a>
+    2. <a href="#java_io">Java IO 模块</a>
+    3. <a href="#java_con">Java 并发编程 模块</a>
+    4. <a href="#java_collection">Java 集合框架 模块</a>
+2. <a href="#design_pattern">设计模式</a>
+3. <a href="#network">计算机网络</a>
+4. <a href="#data_structure">数据结构</a>
+5. <a href="#JVM">Java 虚拟机</a>
+6. <a href="#database">数据库</a>
+    1. <a href="#mysql">MySQL</a>
+	2. <a href="#mysql_h">高性能 MySQL</a>
+	3. <a href="#redis">Redis</a>
+	4. <a href="#mongodb">Mongodb</a>
+7. 服务端框架
+    1. <a href="#spring">Spring</a>
+	2. <a href="#spring_mvc">Spring MVC</a>
+	3. <a href="#mybatis">Mybatis</a>
+8. Java第三方库
+    1. <a href="#guava">Guava</a>
+	2. <a href="#joda_time">Joda-time</a>
+	3. <a href="#log4j">Log4j</a>
+9. <a href="#java_8">Java 8</a>
+
+## 详细目录 
 
 <h2 id="java">1、Java 语言基础</h2>
+
+|编号|名称|
+|:-:|:-:|
+|1||
+|2||
+|3||
+|4||
+|5||
+|6||
+|7||
+|||
+
 
 1. [Java语言概述](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%A6%82%E8%BF%B0.md)
 2. [运算符](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E8%BF%90%E7%AE%97%E7%AC%A6.md)
@@ -31,7 +64,8 @@
 
 <h2 id="java_io">2、Java IO</h2>
 
-## 2、设计模式
+
+<h2 id="design_pattern">2、设计模式</h2>
 
 1. [基本：UML、面向对象设计六大原则等](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/1.%E5%9F%BA%E6%9C%AC.md)
 2. [策略模式](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/2.%E7%AD%96%E5%92%AF%E6%A8%A1%E5%BC%8F.md)
@@ -55,7 +89,7 @@
 20. [解释器模式](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/20.%E8%A7%A3%E9%87%8A%E5%99%A8%E6%A8%A1%E5%BC%8F.md)
 21. [访问者模式](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/21.%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F.md)
 
-## 3、计算机网络
+<h2 id="network">3、计算机网络</h2>
 
 1. [计算机网络概述](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E6%A6%82%E8%BF%B0%20%E5%9B%A0%E7%89%B9%E7%BD%91.md)
 2. [应用层](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%BA%94%E7%94%A8%E5%B1%82.md)
@@ -63,7 +97,7 @@
 4. [运输层](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E8%BF%90%E8%BE%93%E5%B1%82.md)
 5. [链路层](https://github.com/Shouheng88/Java-Programming/blob/master/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E9%93%BE%E8%B7%AF%E5%B1%82.md)
 
-## 4、数据结构与算法
+<h2 id="data_structure">数据结构</h2>
 
 1. [算法的度量和基本数据结构](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1.%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md)
 2. [排序](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2.%E6%8E%92%E5%BA%8F.md)
@@ -80,13 +114,7 @@
 	4. [最小生成树](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.4%20%E5%9B%BE-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md)
 	5. [最短路径](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.5%20%E5%9B%BE-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md)
 
-## 5、MySQL
-
-1. [MySQL基本SQL语法](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.md)
-2. [高性能MySQL](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/%E9%AB%98%E6%80%A7%E8%83%BDMySQL.md)
-3. [乐观锁和悲观锁](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81.md)
-
-## 6、JVM虚拟机
+<h2 id="JVM">5、JVM虚拟机</h2>
 
 1. [JVM概述](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/1.Java%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0.md)
 2. [Java内存区域和内存溢出异常](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/2.Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8.md)
@@ -97,6 +125,12 @@
 7. [Java内存模型与线程](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/8.Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B.md)
 8. [虚拟机性能监控与故障分析工具](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/4.%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7.md)
 9. [Eclipse Memory Analyzer 的使用](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/Eclipse%20Memory%20Analyzer%20%E4%BD%BF%E7%94%A8.md)
+
+<h2 id="database">6、MySQL</h2>
+
+1. [MySQL基本SQL语法](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.md)
+2. [高性能MySQL](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/%E9%AB%98%E6%80%A7%E8%83%BDMySQL.md)
+3. [乐观锁和悲观锁](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81.md)
 
 ## 7、Spring
 
