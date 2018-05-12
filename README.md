@@ -1,15 +1,15 @@
 # Java-编程 整理
 
-> Java的学习笔记和整理的知识点，包含Java语言基础、Java服务端方向的框架、设计模式、计算机网络和算法等
+> Java 的学习笔记和整理的知识点，包含Java语言基础、Java服务端方向的框架、设计模式、计算机网络、算法和 Java 虚拟机等多个方面的内容。
 
 ## 目录结构
 
-<a href="#java">1.Java语言基础</a>
-<a href="#java_io">2.Java IO</a>
-<a href="#java_con">3.Java 并发编程</a>
-<a href="#java_collection">3.Java 集合框架</a>
+1. <a href="#java">Java 语言基础</a>
+2. <a href="#java_io">Java IO</a>
+3. <a href="#java_con">Java 并发编程</a>
+4. <a href="#java_collection">Java 集合框架</a>
 
-<h2 id="java">1、Java语言语法</h2>
+<h2 id="java">1、Java 语言基础</h2>
 
 1. [Java语言概述](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%A6%82%E8%BF%B0.md)
 2. [运算符](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E8%BF%90%E7%AE%97%E7%AC%A6.md)
