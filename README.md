@@ -130,9 +130,9 @@
 
 |编号|名称|
 |:-:|:-:|
-|1|[《MySQL基础命令》](MySQL/MySQL.md)|
-|2|[《高性能MySQL》](MySQL/Heigh_Performance_MySQL.md)|
-|3|[《乐观锁和悲观锁及其实现》](MySQL/Lock.md)|
+|1|<a id="mysql" href="MySQL/MySQL.md">《MySQL基础命令》</a>|
+|2|<a id="mysql_h" href="MySQL/Heigh_Performance_MySQL.md">《高性能MySQL》</a>|
+|3|<a href="MySQL/Lock.md">《乐观锁和悲观锁及其实现》</a>|
 
 ## 7、Spring
 
