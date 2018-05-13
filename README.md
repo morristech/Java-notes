@@ -28,7 +28,7 @@
 	3. <a href="#log4j">Log4j</a>
 9. <a href="#java_8">Java 8</a>
 
-## 详细目录 
+------
 
 <h2 id="java">1、Java 语言基础</h2>
 
@@ -126,11 +126,13 @@
 8. [虚拟机性能监控与故障分析工具](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/4.%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7.md)
 9. [Eclipse Memory Analyzer 的使用](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/Eclipse%20Memory%20Analyzer%20%E4%BD%BF%E7%94%A8.md)
 
-<h2 id="database">6、MySQL</h2>
+<h2 id="database">6、数据库</h2>
 
-1. [MySQL基本SQL语法](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/MySQL%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86.md)
-2. [高性能MySQL](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/%E9%AB%98%E6%80%A7%E8%83%BDMySQL.md)
-3. [乐观锁和悲观锁](https://github.com/Shouheng88/Java-Programming/blob/master/MySQL/%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81.md)
+|编号|名称|
+|:-:|:-:|
+|1|[《MySQL基础命令》](MySQL/MySQL.md)|
+|2|[《高性能MySQL》](MySQL/Heigh_Performance_MySQL.md)|
+|3|[《乐观锁和悲观锁及其实现》](MySQL/Lock.md)|
 
 ## 7、Spring
 
