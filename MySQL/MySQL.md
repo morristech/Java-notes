@@ -70,7 +70,7 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 |5|`alter database <数据库名> character set utf8`|修改数据库的编码格式|
 |6|`alter table <表名> character set utf8`|修改数据表格编码格式|
 |7|`alter table <表名> change <字段名> <字段名> <类型> character set utf8`|修改字段编码格式|
-|8|`set names gbk;`|连接之后使用该命令解决Windows命令行中中文乱码问题| 
+|8|`set names gbk`|连接之后使用该命令解决Windows命令行中中文乱码问题| 
 
 ## 2、数据库操作
 
@@ -79,10 +79,13 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
     CREATE {DATABASE | SCHEMA} [IF NOT EXISTS] db_name 
     [DEFAULT] CHARACTER SET [=] character_name
 
-1. DEFAULT用来说明使用默认编码方式。默认编码方式通过配置文件`my.ini`
-中的`default-character-set`中指定。
-2. `CHARACTER SET [=] character_name`用来指定数据库的字符编码方式。
-3. 有了`IF NOT EXISTS`当指定数据库已经存在的时候，就不会报错了，否则会报错，但是报的错还是可以查找到的。
+说明:
+
+|编号|说明|
+|:-:|:-:|
+|1|DEFAULT用来说明使用默认编码方式。默认编码方式通过配置文件`my.ini`中的`default-character-set`中指定|
+|2|`CHARACTER SET [=] character_name`用来指定数据库的字符编码方式|
+|3|有了`IF NOT EXISTS`当指定数据库已经存在的时候，就不会报错了，否则会报错，但是报的错还是可以查找到的|
 
 建立表的时候使用备注：
 
@@ -90,68 +93,63 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
         test_grade int DEFAULT 1 COMMENT '等级'
     ) COMMENT = '测试表';
 
-### 2.2 显示创建数据库的SQL语句
+### 2.2 其他语句
 
-    SHOW CREATE DATABASE db_name;
-
-类似的，还有显示表的创建的SQL语句：`SHOW CREATE TABLE tbl_name;`
-
-### 2.3 修改
-
-修改数据库的字符编码方式的语句：
-
-    ALTER {DATABASE|SCHEMA} [DEFAULT] CHARACTER SET [=] charset_name;
-
-### 2.4 删除
-
-    DROP {DATABASE|SCHEMA} [IF EXISTS] db_name
-
-### 2.5 显示当前所有数据库
-
-    SHOW DATABASES;
-
-类似的，有`SHOW TABLES [FROM db_name]`用于显示当前数据库（或指定数据库）下面的所有表。
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`SHOW CREATE DATABASE db_name`|显示创建数据库的SQL语句，类似的，还有显示表的创建的SQL语句`SHOW CREATE TABLE tbl_name`|
+|2|`ALTER {DATABASE|SCHEMA} [DEFAULT] CHARACTER SET [=] charset_name`|修改数据库的字符编码方式的语句|
+|3|`DROP {DATABASE|SCHEMA} [IF EXISTS] db_name`||
+|4|`SHOW DATABASES`|显示当前所有数据库，类似的，有`SHOW TABLES [FROM db_name]`用于显示当前数据库（或指定数据库）下面的所有表|
 
 ## 3、数据类型
 
 ### 3.1 整型
 
-整数分为有符号和无符号的，通过`UNSIGNED`指定。（取值范围和C语言中的类型范围一样）
+整数分为有符号和无符号的，通过`UNSIGNED`指定。（取值范围和C语言一样）
 
-1. TiNYINT：1字节
-2. SMALLINT：2字节
-3. MEDIUMINT：3字节
-4. INT：4字节
-5. BIGINT：8字节
+|编号|类型|长度|
+|:-:|:-:|:-:|
+|1|TiNYINT|1字节|
+|2|SMALLINT|2字节|
+|3|MEDIUMINT|3字节|
+|4|INT|4字节|
+|5|BIGINT|8字节|
 
 ### 3.2 浮点型
 
 浮点数也分为有符号的和无符号的。如下所示，前面的m指定了总的位数，后面的n指定了小数的位数，所以整数位数为m-n. 和C语言中的float和double范围一样。
 
-1. FLOAT[(m,n)]：
-2. DOUBLE[(m,n)]：
-3. DECIMAL[(m,n)]：适用于高精度要求的场景
+|编号|类型|长度|
+|:-:|:-:|:-:|
+|1|FLOAT[(m,n)]||
+|2|DOUBLE[(m,n)]||
+|3|DECIMAL[(m,n)]|适用于高精度要求的场景|
 
 ### 3.3 时间类型
 
-1. YEAR：1字节，格式YYYY，范围1901-2155，零值0000
-2. TIME：3字节，格式HH:MM:SS，范围-838:59:59-838:59:59，零值00:00:00
-3. DATE：4字节，格式YYYY-MM-DD，范围1000-01-01-9999-12-31，零值0000-00-00
-4. DATETIME：8字节，格式YYYY-MM-DD HH:MM:SS，范围1000-01-01 00:00:00-9999-12-31 23:59:59，零值0000-00-00 00:00:00
-5. TIMESTAMP：4字节，格式YYYY-MM-DD HH:MM:SS，范围19700101080001-2038年的某个时刻，零值00000000000000
+|编号|类型|长度|
+|:-:|:-:|:-:|
+|1|YEAR|1字节，格式YYYY，范围1901-2155，零值0000|
+|2|TIME|3字节，格式HH:MM:SS，范围-838:59:59-838:59:59，零值00:00:00|
+|3|DATE|4字节，格式YYYY-MM-DD，范围1000-01-01-9999-12-31，零值0000-00-00|
+|4|DATETIME|8字节，格式YYYY-MM-DD HH:MM:SS，范围1000-01-01 00:00:00-9999-12-31 23:59:59，零值0000-00-00 00:00:00|
+|5|TIMESTAMP|4字节，格式YYYY-MM-DD HH:MM:SS，范围19700101080001-2038年的某个时刻，零值00000000000000|
 
 或者使用时间戳，用BIGINT保存指定时间的毫秒值。
 
 ### 3.4 字符型
 
-1. CHAR(m)：m字节，0<=m<=255
-2. VARCHAR(m)：L+1字节，L<=m<=65535
-3. TINYTEXT：L+1字节，L<2<sup>8</sup>
-4. TEXT：L+2字节，L<2<sup>16</sup>
-5. MEDIUMEXT：L+3字节，L<2<sup>24</sup>
-6. LONGTEXT：L+4字节，L<2<sup>32</sup>
-7. ENUM('val1', 'val2', ...)：枚举类型，取决于枚举个数，最多65535
-8. SET('val1', 'val2', ...)：主要用于对枚举进行组合选择
+|编号|类型|长度|
+|:-:|:-:|:-:|
+|1|CHAR(m)|m字节，0<=m<=255|
+|2|VARCHAR(m)|L+1字节，L<=m<=65535|
+|3|TINYTEXT|L+1字节，L<2<sup>8</sup>|
+|4|TEXT|L+2字节，L<2<sup>16</sup>|
+|5|MEDIUMEXT|L+3字节，L<2<sup>24</sup>|
+|6|LONGTEXT|L+4字节，L<2<sup>32</sup>|
+|7|ENUM('val1', 'val2', ...)|枚举类型，取决于枚举个数，最多65535|
+|8|SET('val1', 'val2', ...)|主要用于对枚举进行组合选择|
 
 ## 4、数据表的操作
 
