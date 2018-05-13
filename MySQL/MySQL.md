@@ -97,10 +97,10 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 
 |编号|指令|说明|
 |:-:|:-:|:-:|
-|1|`SHOW CREATE DATABASE db_name`|显示创建数据库的SQL语句，类似的，还有显示表的创建的SQL语句`SHOW CREATE TABLE tbl_name`|
-|2|`ALTER {DATABASE|SCHEMA} [DEFAULT] CHARACTER SET [=] charset_name`|修改数据库的字符编码方式的语句|
-|3|`DROP {DATABASE|SCHEMA} [IF EXISTS] db_name`||
-|4|`SHOW DATABASES`|显示当前所有数据库，类似的，有`SHOW TABLES [FROM db_name]`用于显示当前数据库（或指定数据库）下面的所有表|
+|1|SHOW CREATE DATABASE db_name|显示创建数据库的SQL语句，类似的，还有显示表的创建的SQL语句`SHOW CREATE TABLE tbl_name`|
+|2|ALTER {DATABASE&#124;SCHEMA} [DEFAULT] CHARACTER SET [=] charset_name|修改数据库的字符编码方式的语句|
+|3|DROP {DATABASE&#124;SCHEMA} [IF EXISTS] db_name||
+|4|SHOW DATABASES|显示当前所有数据库，类似的，有`SHOW TABLES [FROM db_name]`用于显示当前数据库（或指定数据库）下面的所有表|
 
 ## 3、数据类型
 
