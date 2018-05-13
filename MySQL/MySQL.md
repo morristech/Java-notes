@@ -159,80 +159,51 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
         column_name data_type, 
         ...
     );
+	
+相关SQL
 
-### 4.2 查看数据库的表
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|SHOW TABLES [FROM db_name][LIKE 'pattern'&#124;WHERE expr]|查看指定数据库的所有的表|
+|2|SHOW COLUMNS FROM tbl_name|显示指定表的各个列的定义|
 
-查看指定数据库的所有的表
+### 4.2 约束
 
-    SHOW TABLES [FROM db_name][LIKE 'pattern'|WHERE expr];
+|编号|约束|说明|
+|:-:|:-:|:-:|
+|1|列的空和非空|在创建表的时候，在定义列的后面加上`NOT NULL`来指定指定的列不可为空。这样的列在插入记录的时候必须对其进行赋值|
+|2|自增|自动编号，必须与主键组合使用。通过在创建表的时候在列定义后加入`AUTO_INCREMENT`来实现。此外，可以通过`ALTER TABLE users AUTO_INCREMENT = 10000;`来指定自增的开始值|
+|3|主键|必须保证唯一性，一个表只能有一个，非NULL。创建表的时候使用`PRIMARY KEY`来指定列是主键|
+|4|唯一约束|必须保证唯一性，一个表可以有多个，可以是NULL的。创建表的时候使用`UNIQUE KEY`来指定列是唯一的|
+|5|默认约束|当指定的列没有指定值的时候就使用默认的值，在创建表的时候，通过使用`DEFAULT`关键字来指定列的默认值|
+|6|外键约束|在实际开发过程中更多地使用逻辑外键而不是物理外键，就是只要保证表之间的关联关系就好，而不为表设置外键。因为外键要求创建表的时候，父表和子表都必须使用INNODB引擎|
 
-### 4.3 查看列定义
+### 4.3 修改表
 
-显示指定表的各个列的定义：
+#### 4.3.1 基本操作
 
-    SHOW COLUMNS FROM tbl_name;
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|ALTER TABLE tbl_name ADD [COLUMN] col_name col_def [FIRST&#124;AFTER col_name]|添加单列，向指定的表中加入一列。通过`FIRST`指定新加入的列处于所有列的最前方，通过`AFTER col_name`指定新加入的列相对于某个列的位置|
+|2|ALTER TABLE tbl_name ADD [COLUMN] (col_name col_def[, col_name col_def, ...])|添加多个列，当向表中添加多个列的时候，只能将新加入列放在表的最后面的位置|
+|3|ALTER TABLE tbl_name DROP [COLUMN] col_name[, col_name, ...]|删除列，可以指定并删除多个列|
+|4|ALTER TABLE tbl_name RENAME [TO&#124;AS] new_tbl_name|修改表名|
+|5|RENAME TABLE tbl_anem TO new_tbl_name [, tbl_name TO new_tbl_name...]|修改表名|
 
-### 4.4 约束
+#### 4.3.2 约束操作
 
-#### 4.4.1 表的空和非空
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] PRIMARY KEY [index_type](index_col_name)|添加主键约束|
+|2|ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] UNIQUE [index_type](index_col_name)|添加唯一约束|
+|3|ALTER TABLE tbl_name DROP PRIMARY KEY|删除主键约束|
+|4|ALTER TABLE DROP {INDEX|KEY} col_name|删除索引|
 
-在创建表的时候，在定义列的后面加上`NOT NULL`来指定指定的列不可为空。这样的列在插入记录的时候必须对其进行赋值。
+1和2两条语句分别用来向指定的表中的列加入主键和唯一性约束。示例`ALTER TABLE temp ADD UNIQUE(name)`（列名上要加括号）。
+加入了主键和唯一性约束的同时会为指定的列加上索引，所以可以使用`index_type`来指定索引的类型。
+要为MySQL设置默认的索引，到`my.ini`中的`default-storage-engine`中进行设置即可。另外，可以使用`SHOW INDEXES FROM tbl_name`查看指定表中存在的索引。
 
-#### 4.4.2 自增
-
-自动编号，必须与主键组合使用。通过在创建表的时候在列定义后加入`AUTO_INCREMENT`来实现。此外，可以通过`ALTER TABLE users AUTO_INCREMENT = 10000;`来指定自增的开始值。
-
-#### 4.4.3 主键
-
-必须保证唯一性，一个表只能有一个，非NULL。创建表的时候使用`PRIMARY KEY`来指定列是主键。
-
-#### 4.4.4 唯一约束
-
-必须保证唯一性，一个表可以有多个，可以是NULL的。创建表的时候使用`UNIQUE KEY`来指定列是唯一的。
-
-#### 4.4.5 默认约束
-
-当指定的列没有指定值的时候就使用默认的值，在创建表的时候，通过使用`DEFAULT`关键字来指定列的默认值。
-
-#### 4.4.6 外键约束
-
-在实际开发过程中更多地使用逻辑外键而不是物理外键，就是只要保证表之间的关联关系就好，而不为表设置外键。因为外键要求创建表的时候，父表和子表都必须使用INNODB引擎。
-
-### 4.5 修改表
-
-#### 4.5.1 添加单列
-
-    ALTER TABLE tbl_name ADD [COLUMN] col_name col_def [FIRST|AFTER col_name]
-
-向指定的表中加入一列。通过`FIRST`指定新加入的列处于所有列的最前方，通过`AFTER col_name`指定新加入的列相对于某个列的位置。
-
-#### 4.5.2 添加多个列
-
-    ALTER TABLE tbl_name ADD [COLUMN] (col_name col_def[, col_name col_def, ...])
-
-当向表中添加多个列的时候，只能将新加入列放在表的最后面的位置。
-
-#### 4.5.3 删除列
-
-    ALTER TABLE tbl_name DROP [COLUMN] col_name[, col_name, ...]
-
-可以指定并删除多个列。
-
-#### 4.5.4 添加约束
-
-    ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] PRIMARY KEY [index_type](index_col_name)
-
-    ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] UNIQUE [index_type](index_col_name)
-
-上面的两条语句分别用来向指定的表中的列加入主键和唯一性约束。示例`ALTER TABLE temp ADD UNIQUE(name)`（列名上要加括号）。加入了主键和唯一性约束的同时会为指定的列加上索引，所以可以使用`index_type`来指定索引的类型。要为MySQL设置默认的索引，到`my.ini`中的`default-storage-engine`中进行设置即可。另外，可以使用`SHOW INDEXES FROM tbl_name`查看指定表中存在的索引。
-
-#### 4.5.5 删除约束
-
-    ALTER TABLE tbl_name DROP PRIMARY KEY;
-
-    ALTER TABLE DROP {INDEX|KEY} col_name;
-
-#### 4.5.6 修改表定义
+#### 4.3.2 修改表定义
 
     ALTER TABLE tbl_name MODIFY [COLUMN] col_name col_def [FIRST|AFTER col_name]
 
@@ -242,20 +213,15 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 
 上面的修改语句的适用范围更广，它可以修改的范围包括：列的数据类型、约束、位置和名称。
 
-#### 4.5.7 修改表名
+#### 4.3.3 增加索引
 
-    ALTER TABLE tbl_name RENAME [TO|AS] new_tbl_name 
-
-    RENAME TABLE tbl_anem TO new_tbl_name [, tbl_name TO new_tbl_name...]
-
-#### 4.5.8 增加索引
-
-1. 主键索引, 添加PRIMARY KEY：`ALTER TABLE tbl_name ADD PRIMARY KEY (col_name)`
-2. 唯一索引, 添加UNIQUE：`ALTER TABLE tbl_name ADD UNIQUE (col_name)`
-3. 普通索引, 添加INDEX：
-    `ALTER TABLE ADD key(col_name)`以及`ALTER TABLE tbl_name ADD INDEX index_name (col_name)`
-4. 全文索引, 添加FULLTEXT: `ALTER TABLE tbl_name ADD FULLTEXT (col_name)`
-5. 多列索引: `ALTER TABLE tbl_name ADD INDEX index_name (col_name1, col_name2, ..)`
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`ALTER TABLE tbl_name ADD PRIMARY KEY (col_name)`|主键索引, 添加PRIMARY KEY|
+|2|`ALTER TABLE tbl_name ADD UNIQUE (col_name)`|唯一索引, 添加UNIQUE|
+|3|`ALTER TABLE ADD key(col_name)`以及`ALTER TABLE tbl_name ADD INDEX index_name (col_name)`|普通索引, 添加INDEX|
+|4|`ALTER TABLE tbl_name ADD FULLTEXT (col_name)`|全文索引, 添加FULLTEXT|
+|5|`ALTER TABLE tbl_name ADD INDEX index_name (col_name1, col_name2, ..)`|多列索引|
 
 ## 5、插入操作
 
