@@ -194,10 +194,10 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 
 |编号|指令|说明|
 |:-:|:-:|:-:|
-|1|ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] PRIMARY KEY [index_type](index_col_name)|添加主键约束|
-|2|ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] UNIQUE [index_type](index_col_name)|添加唯一约束|
-|3|ALTER TABLE tbl_name DROP PRIMARY KEY|删除主键约束|
-|4|ALTER TABLE DROP {INDEX|KEY} col_name|删除索引|
+|1|`ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] PRIMARY KEY [index_type](index_col_name)`|添加主键约束|
+|2|`ALTER TABLE tbl_name ADD [CONSTRAINT[symbol]] UNIQUE [index_type](index_col_name)`|添加唯一约束|
+|3|`ALTER TABLE tbl_name DROP PRIMARY KEY`|删除主键约束|
+|4|`ALTER TABLE DROP {INDEX|KEY} col_name`|删除索引|
 
 1和2两条语句分别用来向指定的表中的列加入主键和唯一性约束。示例`ALTER TABLE temp ADD UNIQUE(name)`（列名上要加括号）。
 加入了主键和唯一性约束的同时会为指定的列加上索引，所以可以使用`index_type`来指定索引的类型。
@@ -225,17 +225,19 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 
 ## 5、插入操作
 
-向表中插入记录
+向表中插入数据的时候，常用的SQL语句有下面三种：
 
-    INSERT [INTO] tbl_name [(col_name, ...)] {VALUES|VALUE} ({expr|DEFAULT}, ...), (...), ...
+1. 向指定数据库的指定列中插入数据，如果不指定了列的名称，就必须对表的所有的列进行赋值:
 
-以上用来向指定数据库的指定列中插入数据，如果不指定了列的名称，就必须对表的所有的列进行赋值。可以为指定的列指定值，可以使用表达式，也可以使用默认值。
+        INSERT [INTO] tbl_name [(col_name, ...)] {VALUES|VALUE} ({expr|DEFAULT}, ...), (...), ...
 
-    INSERT [INTO] tbl_name SET col_name = {expr|DEFAULT} [, col_name = {expr|DEFAULT}]
+2. 可以为指定的列指定值，可以使用表达式，也可以使用默认值：
 
-    INSERT [INTO] tbl_name [(col_name, ...)] SELECT ...
+        INSERT [INTO] tbl_name SET col_name = {expr|DEFAULT} [, col_name = {expr|DEFAULT}]
 
-将查询结果插入到指定的表中。比如`INSERT INTO temp (name) SELECT name FROM assignment`
+3. 将查询结果插入到指定的表中，比如`INSERT INTO temp (name) SELECT name FROM assignment`，格式：
+
+        INSERT [INTO] tbl_name [(col_name, ...)] SELECT ...
 
 ## 6、更新操作
 
@@ -248,7 +250,6 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 ## 7、删除操作
 
     DELETE FROM tbl_name [WHERE where_condition]
-
 
 ## 8、查找
 
@@ -285,16 +286,14 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 
 #### 8.4.1 WEHER子句操作符
 
-1. 等于 `=`
-2. 不等于 `<>`和`!=`
-3. 小于和小于等于 `<`和`<=`
-4. 大于和大于等于 `>`和`>=`
-5. 为NULL值`IS NULL`
-6. 处于两者之间`BETWEEN`
-
-`BETWEEN`实例：
-
-    SELECT * FROM orders WHERE order_num BETWEEN 20006 AND 30000;
+|编号|操作符|说明|
+|:-:|:-:|:-:|
+|1|`=`|等于 |
+|2|`<>`和`!=`|不等于|
+|3|`<`和`<=`|小于和小于等于 |
+|4|`>`和`>=`|大于和大于等于|
+|5|`IS NULL`|为NULL值|
+|6|`BETWEEN`|处于两者之间，示例：`SELECT * FROM orders WHERE order_num BETWEEN 20006 AND 30000`|
 
 #### 8.4.2 AND和OR操作符
 
@@ -554,19 +553,13 @@ MySQL支持IN（传递给存储过程）、 OUT（从存储过程传出，如这
 
     select @price
 
-### 10.2 使用存储过程
+### 10.2 其他SQL
 
-没有参数的存储过程的使用示例：
-
-    call mypp();
-
-### 10.3 删除存储过程
-
-    drop procedure mypp;
-
-### 10.4 检查存储过程
-
-    show create procedure avgprice;
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`call mypp()|没有参数的存储过程的使用示例|
+|2|`drop procedure mypp`|删除存储过程|
+|3|`show create procedure avgprice`|检查存储过程|
 
 ## 11、游标
 
