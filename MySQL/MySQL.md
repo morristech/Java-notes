@@ -1,92 +1,76 @@
-# MySQL Tutorials
+# MySQL 基础
 
 ## 1、概述
 
-目前属于Oracle，分成`社区版和企业版`，`关系型数据库`。
+MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`。
 
 ### 1.1 目录结构
 
-1. bin：存储可执行文件
-2. data：存储数据文件
-3. doc：文档
-4. include：存储包含头文件
-5. lib：存储库文件
-6. share：错误消息和字符集
+|编号|目录|说明|
+|:-:|:-:|:-:|
+|1|bin|存储可执行文件|
+|2|data|存储数据文件|
+|3|doc|文档|
+|4|include|存储包含头文件|
+|5|lib|存储库文件|
+|6|share|错误消息和字符集|
 
 配置文件：`my.ini`
 
-### 1.2 启动和停止
+### 1.2 启动和停止服务
 
-在win cmd中使用`net start/stop mysql`来启动和停止mysql服务
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`net start/stop mysql`|在win cmd中使用来启动和停止mysql服务|
 
 ### 1.3 登入和登出
 
-#### 1.3.1 登入
-
-    mysql -uuer_name -ppassword -Pport -hhost
-
-可以只使用`mysql -uuser_name -ppasswrod`来开启，后面的可以使用默认的值。`-P`是指端口号，默认3306。`-h`是指地址，默认127.0.0.1。
-
-#### 1.3.2 登出
-
-在MySQL命令窗口输入：`exit`, `quit`和`\q`之中任意一个即可。
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`mysql -uuer_name -ppassword -Pport -hhost`|用于登录，可以只使用`mysql -uuser_name -ppasswrod`来开启，后面的可以使用默认的值。`-P`是指端口号，默认3306。`-h`是指地址，默认127.0.0.1|
+|2|`exit`, `quit`和`\q`之中任意一个即可|用于登出|
 
 ### 1.4 修改输入提示符
 
-在登入时，通过`-prompt`来指定提示符，或者在处于命令行时使用`prompt`来指定。
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`mysql -prompt`|在登入时，通过`-prompt`来指定提示符|
+|2|`prompt`|在处于命令行时使用`prompt`来指定|
 
 在指定提示符的时候可以使用`\D`, `\d`, `\h`和`\u`来指示提示符显示当前的日期、数据库、服务器和用户。
 
 ### 1.5 查询数据库信息
 
-使用`SELECT VERSION()`, `SELECT NOW()`, `SELECT USER()`, `SELECT DATABASE()`可以分别用来显示当前的数据库版本、时间、操作用户和数据库。
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`SELECT VERSION()`|当前的数据库版本|
+|2|`SELECT NOW()`|当前的数据库时间|
+|3|`SELECT USER()`|当前的数据库操作用户|
+|4|`SELECT DATABASE()`|当前操作的数据库|
 
 ### 1.6 注释
 
-1. 行注释：`--`
-2. 多行注释：`/**/`
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`--`|行注释|
+|2|`/**/`|多行注释|
 
 ### 1.7 约定
 
 数据库操作指令大写；数据库相关的名称小写，且单词之间用下划线分开。
 
-### 1.8 关于字符编码
+### 1.8 字符编码
 
-查看mysql中当前编码
-
-    show variables like 'char%
-
-查看数据表的编码格式
-
-    mysql> show create table <表名>;
-
-创建数据库时指定数据库的字符集
-
-    mysql>create database <数据库名> character set utf8;
-
-创建数据表时指定数据表的编码格式
-
-    create table tb_books (
-        name varchar(45) not null,
-        price double not null,
-        bookCount int not null,
-        author varchar(45) not null ) default charset = utf8;
-
-修改数据库的编码格式
-
-    mysql>alter database <数据库名> character set utf8;
-
-修改数据表格编码格式
-
-    mysql>alter table <表名> character set utf8;
-
-修改字段编码格式
-
-    mysql>alter table <表名> change <字段名> <字段名> <类型> character set utf8;
-
-window命令行中中文乱码问题，连接之后使用
-
-    set names gbk;
+|编号|指令|说明|
+|:-:|:-:|:-:|
+|1|`show variables like 'char%`|查看mysql中当前编码|
+|2|`show create table <表名>`|查看数据表的编码格式|
+|3|`create database <数据库名> character set utf8`|创建数据库时指定数据库的字符集|
+|4|`create table tb_books (...) default charset = utf8;`|创建数据表时指定数据表的编码格式|
+|5|`alter database <数据库名> character set utf8`|修改数据库的编码格式|
+|6|`alter table <表名> character set utf8`|修改数据表格编码格式|
+|7|`alter table <表名> change <字段名> <字段名> <类型> character set utf8`|修改字段编码格式|
+|8|`set names gbk;`|连接之后使用该命令解决Windows命令行中中文乱码问题| 
 
 ## 2、数据库操作
 
