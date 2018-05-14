@@ -72,6 +72,10 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 |7|`alter table <表名> change <字段名> <字段名> <类型> character set utf8`|修改字段编码格式|
 |8|`set names gbk`|连接之后使用该命令解决Windows命令行中中文乱码问题| 
 
+### 1.9 SQL类型
+
+![SQL类型](resources/sql_type.png)
+
 ## 2、数据库操作
 
 ### 2.1 创建
