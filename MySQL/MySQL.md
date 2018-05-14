@@ -74,7 +74,7 @@ MySQL目前属于Oracle，分成`社区版和企业版`，`关系型数据库`�
 
 ### 1.9 SQL类型
 
-![SQL类型](resources/sql_type.png)
+![SQL类型](resources/sql_types.png)
 
 ## 2、数据库操作
 
