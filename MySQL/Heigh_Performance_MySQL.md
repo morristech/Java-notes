@@ -421,4 +421,3 @@ InnoDB只有在访问行的时候才会对其加锁，而索引能够减少访�
 ## 参考
 
 1. 《高性能MySQL》
-2. [MySQL系列-- 1.MySQL架构](https://juejin.im/post/59ec528bf265da43333d8bb0)
