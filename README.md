@@ -50,9 +50,9 @@
 
 |编号|名称|
 |:-:|:-:|
-|1|[Object类](Java/Object.md)|
-|2|[Class类](Java/Class.md)|
-|3|[字符串](Java/Strings.md)|
+|1|[Object类及其方法](Java/Other/Object.md)|
+|2|[Class类](Java/Other/Class.md)|
+|3|[字符串](Java/Other/Strings.md)|
 
 <h3 id="java_io">2. Java IO 模块</h3>
 
