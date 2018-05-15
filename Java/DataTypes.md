@@ -150,14 +150,14 @@ float：2^23 = 8388608，一共七位，由于最左为1的一位省略了，这
         swap(holderNegative, holderPositive); // 交换引用，无法达到交换效果
         System.out.println("holderPositive.value=" + holderPositive.value + ", " + "holderNegative.value=" + holderNegative.value);
         
-		swapValue(holderNegative, holderPositive); // 交换引用的字段，可以达到交换效果
+        swapValue(holderNegative, holderPositive); // 交换引用的字段，可以达到交换效果
         System.out.println("holderPositive.value=" + holderPositive.value + ", " + "holderNegative.value=" + holderNegative.value);
         
-		int positive = 1, negative = -1;
+        int positive = 1, negative = -1;
         swap(positive, negative); // 交换值类型的值，无法达到交换效果
         System.out.println("positive=" + positive + ", " + "negative=" + negative);
         
-		Integer objPos = 1, objNeg = -1;
+        Integer objPos = 1, objNeg = -1;
         swap(objPos, objNeg); // 使用整数类型的包装类型来交换，无法达到交换效果
         System.out.println("objPos=" + objPos + ", " + "objNeg=" + objNeg);
 
