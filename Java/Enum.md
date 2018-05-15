@@ -1,15 +1,16 @@
 # 枚举
 
-一个示例的枚举的定义：
+## 1、枚举的示例
 
     public enum ProductType {
-        NORMAL("普通品"),
-        SPECIAL("特殊品"); // 这里的分号是必不可少的
+        NORMAL(0, "普通品"),
+        SPECIAL(1, "特殊品"); // 这里的分号是必不可少的
 
-        private String name;
-        private String no;
+        public final String name;
+        public final int no;
 
-        ProductType(String name) {
+        ProductType(int id, String name) {
+		    this.id = id;
             this.name = name;
         }
 
@@ -21,35 +22,16 @@
             }
             throw new IllegalArgumentException("illegal argument");
         }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getNo() {
-            return no;
-        }
-
-        public void setNo(String no) {
-            this.no = no;
-        }
     }
 
-这里定义的是一个枚举类型的定义。从上面可以看出，枚举和普通的类差不多，都包含一个构造方法，而且可以加入需要的字段和方法。如果说在定义的时候有什么不同呢，大概就在于必须在类的最顶部的位置定义几个枚举类型，如果一个枚举类型都没有，也应该加上一个`;`号。此外，就没有什么区别了。
+上面是一个枚举的示例，注意这里面的一些细节：
 
-如果我们需要将枚举定义成内部的字段不可变的，那么我们就需要将字段定义成final类型的，并在构造方法中对字段进行初始化。
-
-我们在枚举类型的内部定义枚举类型的时候，也是要使用枚举的构造方法的，并且构造方法也可以重载的。
-
-注意，用户所创建的枚举类型都会继承Enum类，上面我们用到了values方法，它返回当前枚举的所有枚举类型。values是一个静态方法，它不存在予Enum类中，而是由编译器插入到enum定义中的方法。
-
-因为所有的枚举类型都默认继承了Enum类，所以自定义枚举类型就不能再继承其他类了。
-
-枚举有一个ordinal字段，它表示的是指定的枚举值在所有枚举值中的位置（从0开始）。不过，我们通常倾向于自己实现自己的id来给枚举值标序，因为这样更有利于维护。
+1. 首先，定义枚举的时候要用enum关键字，这只是替代了定义类的时候的class关键字；
+2. 实际上枚举是隐式继承Enum.class的，所以，枚举本身也是一个类，并且上面用到的values()方法就来自于Enum；
+3. 枚举通常用来表示那些不会进行修改的对象，所以我们可以根据需要向枚举中添加一些字段；
+4. 枚举的字段可以是public的，因为它同时也是final的，所以，不用担心暴露得太多而无法控制的问题；
+5. 因为所有的枚举类型都默认继承了Enum类，所以自定义枚举类型就不能再继承其他类了；
+6. 枚举有一个ordinal字段，它表示的是指定的枚举值在所有枚举值中的位置（从0开始）。不过，我们通常倾向于自己实现自己的id来给枚举值标序，因为这样更有利于维护
 
 ### 1.使用接口组织枚举
 
@@ -57,23 +39,15 @@
 
     public interface City {
         enum ChineseCity implements City {
-            BEIJING,
-            SHANGHAI,
-            GUANGZHOU;
+            BEIJING, SHANGHAI, GUANGZHOU;
         }
 
         enum AmericanCity implements City {
-            NEW_YORK,
-            HAWAII,
-            IOWA,
-            WASHINGTON;
+            NEW_YORK, HAWAII, IOWA, WASHINGTON;
         }
 
         enum EnglishCity implements City {
-            BRISTOL,
-            CAMBRIDGE,
-            CHESTER,
-            LIVERPOOL;
+            BRISTOL, CAMBRIDGE, CHESTER, LIVERPOOL;
         }
     }
 
@@ -131,9 +105,8 @@
     Operation operation = BasicOperation.ADD;
     System.out.println(operation.apply(7, 8));
 
-使用上面的两行代码，我们可以轻易地得出结果为15.这是没有问题的，而且我们可以看出这里借助于枚举实现了策略模式——我们只需要指定枚举的类型然后具体的执行过程不用更改，它就可以正确地为我们得出结果！
+使用上面的两行代码，我们可以轻易地得出结果为15.这是没有问题的，而且我们可以看出这里借助于枚举实现了策略模式。
 
 ### 2.EnumSet和EnumMap
 
-这是两个适用于枚举类型的容器类型……
-
+这是两个适用于枚举类型的容器类型
