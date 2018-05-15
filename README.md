@@ -30,9 +30,9 @@
 
 ------
 
-<h2 id="java">1、Java 语言基础和JDK源码阅读</h2>
+## 1、Java 语言基础和JDK源码阅读
 
-### 1. Java 语言基础
+<h3 id="java">1. Java 语言基础</h3>
 
 |编号|名称|
 |:-:|:-:|
@@ -40,19 +40,26 @@
 |2|[运算符](Java/Operator.md)|
 |3|[数据类型](Java/DataTypes.md)|
 |4|[类 对象 接口](Java/CIO.md)|
-|5||
-|6||
-|7||
-|||
+|5|[数组](Java/Array.md)|
+|6|[枚举](Java/Enum.md)|
+|7|[异常处理](Java/Exceptions.md)|
+|8|[注解](Java/Anno.md)|
+|9|[范型](Java/Generics.md)|
 
-5. [Object类](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/Object%E7%B1%BB.md)
-6. [Class类](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/Class%E7%B1%BB.md)
-7. [Java数组](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%95%B0%E7%BB%84.md)
-8. [枚举](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%9E%9A%E4%B8%BE.md)
-9. [字符串](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E5%AD%97%E7%AC%A6%E4%B8%B2.md)
-10. [泛型](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%B3%9B%E5%9E%8B.md)
-11. [注解](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%B3%A8%E8%A7%A3.md)
-12. [异常处理](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.md)
+其他
+
+|编号|名称|
+|:-:|:-:|
+|1|[Object类](Java/Object.md)|
+|2|[Class类](Java/Class.md)|
+|3|[字符串](Java/Strings.md)|
+
+<h3 id="java_io">2. Java IO 模块</h3>
+
+<h3 id="java_con">3. Java 并发编程 模块</h3>
+
+<h3 id="java_collection">4. Java 集合框架 模块</h3>
+
 13. [容器](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E5%AE%B9%E5%99%A8.md)
 14. [Java IO](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/IO/Java%20IO.md)
 15. [Java NIO](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/IO/%E6%96%B0IO.md)
