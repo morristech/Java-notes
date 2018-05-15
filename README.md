@@ -111,22 +111,39 @@
 |4|[运输层](Network/Transport_layer.md)|
 |5|[链路层](Network/Link_layer.md)|
 
-<h2 id="data_structure">数据结构</h2>
+<h2 id="data_structure">4、数据结构</h2>
 
-1. [算法的度量和基本数据结构](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1.%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.md)
-2. [排序](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2.%E6%8E%92%E5%BA%8F.md)
-3. 查找
-	1. [符号表查找](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3.1%20%E6%9F%A5%E6%89%BE-%E7%AC%A6%E5%8F%B7%E8%A1%A8%E6%9F%A5%E6%89%BE.md)
-	2. [二叉查找树](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3.2%20%E6%9F%A5%E6%89%BE-%E4%BA%8C%E5%8F%89%E6%9F%A5%E6%89%BE%E6%A0%91.md)
-	3. [平衡查找树](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3.3%20%E6%9F%A5%E6%89%BE-%E5%B9%B3%E8%A1%A1%E6%9F%A5%E6%89%BE%E6%A0%91.md)
-	4. [散列表](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3.4%20%E6%9F%A5%E6%89%BE-%E6%95%A3%E5%88%97%E8%A1%A8.md)
-	5. [多路查找树](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/3.5%20%E6%9F%A5%E6%89%BE-%E5%A4%9A%E8%B7%AF%E6%9F%A5%E6%89%BE%E6%A0%91.md)
-4. 图
-	1. [无向图](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.1%20%E5%9B%BE-%E6%9C%89%E5%90%91%E5%9B%BE.md)
-	2. [图的遍历](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.2%20%E5%9B%BE-%E5%9B%BE%E7%9A%84%E9%81%8D%E5%8E%86.md)
-	3. [有向图](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.3%20%E5%9B%BE-%E6%9C%89%E5%90%91%E5%9B%BE.md)
-	4. [最小生成树](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.4%20%E5%9B%BE-%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91.md)
-	5. [最短路径](https://github.com/Shouheng88/Java-Programming/blob/master/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/4.5%20%E5%9B%BE-%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84.md)
+### 算法的度量和基本数据结构
+
+|编号|名称|
+|:-:|:-:|
+|1|[算法的度量和基本数据结构](DataStructure/Basic.md)|
+
+### 排序
+
+|编号|名称|
+|:-:|:-:|
+|1|[排序](DataStructure/Sort.md)|
+
+### 查找
+
+|编号|名称|
+|:-:|:-:|
+|1|[符号表查找](DataStructure/Search_label.md)|
+|2|[二叉查找树](DataStructure/Search_binary.md)|
+|3|[平衡查找树](DataStructure/Search_avl.md)|
+|4|[散列表](DataStructure/Search_hash.md)|
+|5|[多路查找树](DataStructure/Search_MWays.md)|
+
+### 图
+
+|编号|名称|
+|:-:|:-:|
+|1|[无向图](DataStructure/Graph_undirected_graph.md)|
+|2|[图的遍历](DataStructure/Graph_ergodic.md)|
+|3|[有向图](DataStructure/Graph_directed_graph.md)|
+|4|[最小生成树](DataStructure/Graph_mst.md)|
+|5|[最短路径](DataStructure/Graph_shortest.md)|
 
 <h2 id="JVM">5、JVM虚拟机</h2>
 
