@@ -34,9 +34,9 @@
 
 |编号|名称|
 |:-:|:-:|
-|1|[《Java基本》](Java/Base.md)|
-|2|[《Java运算符》](Java/Operator.md)|
-|3|[《Java数据类型》](Java/DataTypes.md)|
+|1|[基本](Java/Base.md)|
+|2|[Java运算符](Java/Operator.md)|
+|3|[Java数据类型](Java/DataTypes.md)|
 |4||
 |5||
 |6||
@@ -127,9 +127,9 @@
 
 |编号|名称|
 |:-:|:-:|
-|1|<a id="mysql" href="MySQL/MySQL.md">《MySQL基础命令》</a>|
-|2|<a id="mysql_h" href="MySQL/Heigh_Performance_MySQL.md">《高性能MySQL》</a>|
-|3|<a href="MySQL/Lock.md">《乐观锁和悲观锁及其实现》</a>|
+|1|<a id="mysql" href="MySQL/MySQL.md">MySQL基础命令</a>|
+|2|<a id="mysql_h" href="MySQL/Heigh_Performance_MySQL.md">高性能MySQL</a>|
+|3|<a href="MySQL/Lock.md">乐观锁和悲观锁及其实现</a>|
 
 ## 7、Spring
 
