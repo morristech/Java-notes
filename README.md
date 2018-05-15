@@ -35,8 +35,8 @@
 |编号|名称|
 |:-:|:-:|
 |1|[基本](Java/Base.md)|
-|2|[Java运算符](Java/Operator.md)|
-|3|[Java数据类型](Java/DataTypes.md)|
+|2|[运算符](Java/Operator.md)|
+|3|[数据类型](Java/DataTypes.md)|
 |4||
 |5||
 |6||
