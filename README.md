@@ -36,7 +36,7 @@
 |:-:|:-:|
 |1|[《Java基本》](Java/Base.md)|
 |2|[《Java运算符》](Java/Operator.md)|
-|3||
+|3|[《Java数据类型》](Java/DataTypes.md)|
 |4||
 |5||
 |6||
@@ -44,7 +44,6 @@
 |||
 
 
-3. [数据类型](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.md)
 4. [类、对象、接口](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/%E7%B1%BB%E3%80%81%E6%8E%A5%E5%8F%A3.md)
 5. [Object类](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/Object%E7%B1%BB.md)
 6. [Class类](https://github.com/Shouheng88/Java-Programming/blob/master/Java%E8%AF%AD%E8%A8%80/Class%E7%B1%BB.md)
