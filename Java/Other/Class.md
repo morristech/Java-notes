@@ -1,4 +1,4 @@
-## Class类
+# Class类
 
 Class类包含了与类某个类有关的信息，Class也支持泛型。它们的效果是相同的，只是使用泛型具有编译器类型检查的效果，相对更加安全。
 
@@ -10,8 +10,6 @@ Class类包含了与类某个类有关的信息，Class也支持泛型。它们�
 
     public static void main(String ...args) {
         Class<SubClass> subClass = SubClass.class;
-
-这里尝试使用Class的newInstance方法创建SubClass的实例。如果SubClass被定义为private的就会抛出异常。但是，如果我们使用new直接创建的话，即使是priavte的类也是没有问题的：
 
         try {
             // 如果SubClass是private类型的，那么会抛出以下异常：
