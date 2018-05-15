@@ -1,14 +1,22 @@
 # Java IO
 
-## 1.Java IO 体系
+## 1、Java IO 体系
 
-![](http://s1.sinaimg.cn/mw690/006IHCLDzy7ail380KI20&690)
+![Java IO 体系](/Java/res/io_frame.png)
 
-### 1.1 IO流体系概述
+### 1.1 概述
 
-抽象类InputStream和OutputStream构成了输入/输出(IO)类层次的结构基础。因为Java中使用的Unicode都是双字节的，所以抽象类Reader和Writer就是设计了的专门用于处理Unicode字符的单独的类层次结构。即InputStream和OutputStream是基于单字节的，而Reader和Writer是基于双字节的。
+抽象类InputStream和OutputStream构成了输入/输出(IO)类层次的结构基础。
+因为Java中使用的Unicode都是双字节的，所以抽象类Reader和Writer就是设计了的专门用于处理Unicode字符的单独的类层次结构。
+即InputStream和OutputStream是基于单字节的，而Reader和Writer是基于双字节的。
 
-当完成对流的读写，应该通过close关闭它，这将释放有限的操作系统资源。关闭输出流还会冲刷用于该输出流的缓冲区：所有被临时置于缓冲区中，以便使用更大的包的形式传递的字符在关闭输出流时都将被送出。如果不关闭文件，那么写出字节的最后一个包可能永远得不到传递。此外，也可以使用flush()方法人为地冲刷输出。
+当完成对流的读写，应该通过close关闭它，这将释放有限的操作系统资源。
+关闭输出流还会冲刷用于该输出流的缓冲区：所有被临时置于缓冲区中，以便使用更大的包的形式传递的字符在关闭输出流时都将被送出。
+如果不关闭文件，那么写出字节的最后一个包可能永远得不到传递。
+此外，也可以使用flush()方法人为地冲刷输出。
+
+直接对数据源进行操作的流叫做节点流，其他流可以在它们的基础之上进行一层包装来实现自己的逻辑。
+那些不是直接对数据源进行操作的流就是非节点流。
 
 ### 1.2 装饰者模式
 
@@ -26,33 +34,33 @@ Java 的IO系统的设计使用了**装饰者**设计，注意这里的**FilterI
             return in.read();
         }
 
-        // ...其他方法
+        // ...其他方法，它内部还定义了一些其他的方法，这里我们只给出一部分
     }
 
-它内部还定义了一些其他的方法，这里我们只给出一部分。从这里也可以看出，它内部维护了一个InputStream对象，并在构造方法对其进行赋值，然后将具体的方法的实现都在内部交给它来执行。
+从这里也可以看出，它内部维护了一个InputStream对象，并在构造方法对其进行赋值，然后将具体的方法的实现都在内部交给它来执行。
 
-FilterInputStream有几个具体的实现：BufferedInputStream, DataInputStream等。
+#### 从装饰者模式理解IO体系
 
-理解了这个我们就会容易得理解上面这张图的框架的设计的层次：它的InputStream是一个抽象的基类，它的直接子类中除了上面提到的FilterInputStream，都对应于不同的输入类型。而FilterInputStream的作用则是进行装饰，意在对来自不同的输入类型的结果进行一层包装。FilterInputStream是一个抽象的装饰器，它的子类分别代表着不同的功能。
+理解了这个设计原理，我们就会容易得理解上面这张图的框架的设计的层次。InputStream是一个抽象的基类，它的直接子类中除了上面提到的FilterInputStream，都对应于不同的输入类型。FilterInputStream是一个抽象的装饰器，它的子类分别代表着不同的功能。而FilterInputStream的作用则是进行装饰，意在对来自不同的输入类型的结果进行一层包装。
 
-使用装饰者模式的好处是：用户可以使用流的组合来实现流操作的复杂功能，某些流（节点流）能够从文件或其他位置获取字节，而其他流可以将字节组装成有用的数据类型，也就是责任是分开的。此外，还可以使用缓冲流，它使得不用每次读取的时候都访问硬件或者网络，将数据缓存下来，提高了读写的效率。
+#### 使用装饰者模式的好处是
 
-这些直接对数据源进行操作的流叫做节点流，其他流可以在它们的基础之上进行一层包装来实现自己的逻辑。那么不是直接对数据源进行操作的流就是非节点流。
+用户可以使用装饰器组合来实现流操作的复杂功能，某些流（节点流）能够从文件或其他位置获取字节，而其他流可以将字节组装成有用的数据类型，也就是责任是分开的。
 
-## 2、字节流的写入和读取
+## 2、字节流的读写
 
-### 2.1 二进制文件的写入和读取
+### 2.1 二进制文件的读写
 
 FileInputStream和FileOutputStream提供了附着在磁盘文件的输入流和输出流，只要像其构造器传入文件名或者文件路径即可。
 
-#### 2.1.1 二进制文件的读取  FileInputStream类
+#### 二进制文件的读取 FileInputStream
 
     FileInputStream(...)    通过打开一个到实际文件的连接来创建一个 FileInputStream，
 
 关于文件分隔符的说明：
 反斜杠`\`是转义字符，因此在写文件路径的时候要使用`\\`或者`/`（实际的文件路径只有一个反斜杠）。但是，为了使程序便于移植最好使用常量字符串`java.io.File.separator`来获取文件分隔符。
 
-#### 2.1.2 二进制文件的写入  FileOutputStream类
+#### 二进制文件的写入 FileOutputStream
 
 其构造方法如下，
 
@@ -61,7 +69,7 @@ FileInputStream和FileOutputStream提供了附着在磁盘文件的输入流和�
 
 关于append：如果append为true，那么数据将被添加到文件尾，而具有相同名字的文件不会被删除；否则，该方法会删除所有具有相同名字的已有文件。 
 
-示例程序：
+#### 示例程序
 
     public static void main(String ...args) {
         File file = new File("." + File.separator + "io_test.txt");
@@ -91,9 +99,9 @@ FileInputStream和FileOutputStream提供了附着在磁盘文件的输入流和�
 	字节流的写入和读取的测试字符串
     45
 
-### 2.2 基本数据类型的写入/读取
+### 2.2 基本数据类型的读写
 
-#### 2.2.1 数据输入流  DataIntputStream类
+#### 数据输入流 DataIntputStream
 
 DataInputStream不是节点流，无法从磁盘中直接读取字节，它只有一个构造方法，需要传入节点流
 
@@ -105,7 +113,7 @@ DataInputStream不是节点流，无法从磁盘中直接读取字节，它只�
     char readChar()  
     // ...其他的数据类型的读取
 
-#### 2.2.2 数据输出流  DataOutputStream类
+#### 数据输出流  DataOutputStream类
 
 DataOutputStream非节点流，需要通过其他节点创建，也只有一个构造方法
 
@@ -123,7 +131,7 @@ DataOutputStream非节点流，需要通过其他节点创建，也只有一个�
     void writeDouble(double v)
     // ...其他的数据类型写入
 
-示例程序：
+#### 示例程序
 
     public static void main(String ...args) {
         File file = new File("." + File.separator + "data_io.txt");
@@ -191,19 +199,19 @@ DataOutputStream非节点流，需要通过其他节点创建，也只有一个�
 
 缓冲流不是节点流，需要为其指定一个节点流，它的作用是创建一个缓冲区，从而不必每次读入字符时都访问设备。一般将缓冲流放在节点流和另一种流之间，前者用于访问设备数据，后者提供获取各种数据类型的方法。
 
-#### 2.3.1 字节缓冲输入流  BufferedInputStream类
+#### 字节缓冲输入流 BufferedInputStream
 
 创建带缓冲区的流，带缓冲区的流在从流中读入字符使，不会每次都对设备访问，当缓冲区为空时，会向缓冲区读入一个新的的数据块。
 
     BufferedInputStream(InputStream in， int size) 
 
-#### 2.3.2 字节缓冲输出流  BufferedOutputStream类
+#### 字节缓冲输出流 BufferedOutputStream
 
 创建一个带缓冲的流，带缓冲区的输出流在收集要写出的字符时，不会每次都对设备访问，当缓冲区填满或者流被冲刷时，数据被写出。
 
     BufferedOutputStream(OutputStream out, int size)
 
-示例程序，
+#### 示例程序
 
     public static void main(String ...args) {
         File fileToCopy = new File("." + File.separator + "who will succeed.mp4");
@@ -257,7 +265,7 @@ DataOutputStream非节点流，需要通过其他节点创建，也只有一个�
 	564
     64606
 
-## 3、字符流的写入和读取
+## 3、字符流的读写
 
 ### ３.1 概述
 
@@ -267,7 +275,7 @@ DataOutputStream非节点流，需要通过其他节点创建，也只有一个�
 
 FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入输出. 若要指定文本编码方式可以使用InputStreamReader类和OutputStreamWriter类. 这两种流都不是节点流，需要向其中传入节点流创建对象，所以，其机制大致是先使用节点流从设备读取字符，然后使用指定字符集编码。注意这里传入的节点流是字节流，InputSteam和OutputSteam及其子类，而不是FileReader和FileWriter.
 
-#### 3.2.1 字符输出流  InputStreamReader类
+#### 字符输出流 InputStreamReader
 
 显然该流也不是节点流，需要向其传入一个节点流，其构造方法
 
@@ -277,7 +285,7 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
 
 该类有用于读取字符的方法: `read()`
 
-#### 3.2.2 字符输出流  OutputStreamWriter类
+#### 字符输出流 OutputStreamWriter
 
 需要向其传入一个节点流，其构造方法
 
@@ -289,11 +297,11 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
 
 ### 3.3 使用字符缓冲提高读写速度
 
-#### 3.3.1 字符缓冲输出流  BufferedWriter
+#### 字符缓冲输出流 BufferedWriter
 
 使用了装饰器模式，用来对传入的Writer进行一层封装。其构造方法是：`BufferedWriter(Writer out)`
 
-#### 3.3.2 字符缓冲输入流  BufferedReader
+#### 字符缓冲输入流 BufferedReader
 
 同理，其构造方法`BufferedReader(Reader in)`
 
@@ -303,19 +311,19 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
 
 它跟父类的区别仅在于，它们在构造方法中需要传入文件相关的信息，然后直接使用这些信息创建了FileOutputStream和FileInputStream，并将创建的实例传递给父类的构造方法。
 
-#### 3.2.1 文本文件的读取  FileReader类
+#### 文本文件的读取 FileReader
 
 它继承了OutputStreamReader，其构造方法为：`FileReader(...)`. 
 
 然后可以使用该类提供的`read()`方法进行单个字符的读取 	
 
-#### 3.2.2 文本文件的写入  FileWriter类
+#### 文本文件的写入 FileWriter
 
 与FileReader类似，实际上内部使用了FileOutputStream来获取输出流的。
 
 该类提供了写出字符的方法: `write(int c)`
 
-示例程序：
+#### 示例程序
 
     public static void main(String ...args) {
         File file = new File("." + File.separator + "data_io.txt");
@@ -358,7 +366,7 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
 
 ### 3.5 文本的读写
 
-#### 3.5.1 文本的写出
+#### 文本的写出
 
 对文本输出，可以使用PrintWriter，该类具有以文本格式打印字符串和数字的方法，
 该类的构造方法比较多，根据传入的文件方式，大致可以将其分成下面四种主要类型，其他方法只是在这四种方式的基础上，规定了编码方式和是否启用自动刷新
@@ -378,11 +386,11 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
 
 可以用它来打印数字、字符、boolean值、字符串和对象。
 
-#### 3.5.2 文本的读取
+#### 文本的读取
 
 在Java SE5之前，处理文本输入的唯一方式是BufferReader类，它拥有readLine方法，可以读入一行文本。但是它没有任何用于读入数字的方法，而现在可以使用Scanner来读如文本输入。
 
-示例程序：
+#### 示例程序
 
 	package ioprojects06;
 	import ......
@@ -463,7 +471,7 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
     long length()               返回此文件的长度。 
     void seek(long pos)         设置到此文件开头测量到的文件指针偏移量，在该位置发生下一个读取或写入操作。 
 
-示例程序，
+#### 示例程序
 
 	package ioprojects07;
 	import ......
@@ -538,7 +546,7 @@ FileWriter和FileReader类使用Window默认字符编码GB 2112的字符输入�
 
 Jar是一种带有特殊项的ZIP文件，可以使用JarInputStream和JarOutputStream来写清单项。
 
-示例程序：
+#### 示例程序
 
 	package ioprojects08;
 	import ......
@@ -607,7 +615,7 @@ java支持对象序列化机制，它将任意对象写到流中，并在之后�
 
 但是要想在对象流中恢复和存储的类都应该实现Serializable接口，该接口中没有任何方法，实现了即可。
 
-程序示例：
+#### 程序示例
 
 	package ioprojects09;
 	import ......
@@ -685,7 +693,7 @@ Path类
 
 而File类中也有方法Path toPath()可以用来获取一个Path对象
 
-示例程序：
+#### 示例程序
 
 	package ioprojects10;
 	import ......
@@ -706,7 +714,7 @@ Path类
 
 ### 7.2 Files类
 
-#### 7.2.1 读写文件
+#### 读写文件
 
 该类提供了一些便捷的操作文件的方法。
 
@@ -716,7 +724,7 @@ Path类
 4. 向指定文件追加内容: `Files.write(path, content.getBytes(charset), StandardOpenOption.APPEND);` 
 5. 直接打开输入流和输出流：`newInputStream(...)`和`newOutputStream()`
 
-#### 7.2.2 复制、移动和删除文件
+#### 复制、移动和删除文件
 
 下面的这些方法适用于处理中等长度的文本文件，如果文件比较大，或者是二进制文件，尽量使用前面的那些流：
 
@@ -725,7 +733,7 @@ Path类
 3. 如果目标路径存在该文件，那么复制或移动将会失败，若要覆盖已有的目标路径，可以使用REPLACE_EXISTING，如`Files.copy(...)`
 4. 删除文件：`Files.delete(...)`, `Files.deleteIfExists(...) `
 
-#### 7.2.3 创建文件和目录
+#### 创建文件和目录
 
 1. 创建新目录
 
@@ -735,18 +743,18 @@ Path类
 
 2. 创建临时目录和文件的方法: `Files.createTempDirectory(...)`或`Files.createTempFile(...)`
 
-#### 7.2.4 获取文件信息
+#### 获取文件信息
 
 1. 返回文件的字节数: `Files.size(...)`
 2. 略，它还有很多静态的边界方法，简单地传入文件路径就可以获取到文件的信息
 
 ### 7.4 File类概述
 
-#### 7.4.1 File类构造方法
+#### File类构造方法
 
 使用File的构造方法获取File实例，我们可以通过传入文件路径、URI和父文件并指定一个文件名的方式创建。（文件路径的分隔与系统有关，可以使用File.seprator和File.sepratorChar代替分隔符）
 
-#### 7.4.2 文件和目录的基本操作
+#### 文件和目录的基本操作
 
 1. 构建表示文件路径的File对象:`new File(...)`
 2. 判断目录/文件是否存在:`exists()`
