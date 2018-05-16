@@ -34,7 +34,7 @@
 
 ## 1、Java 语言基础和JDK源码阅读
 
-<h3 id="java">1. Java 语言基础</h3>
+<h3 id="java">Java 语言基础</h3>
 
 |编号|名称|
 |:-:|:-:|
@@ -56,14 +56,14 @@
 |2|[Class类](Java/Other/Class.md)|
 |3|[字符串相关问题总结](Java/Other/Strings.md)|
 
-<h3 id="java_io">2. Java IO 模块</h3>
+<h3 id="java_io">Java IO 模块</h3>
 
 |编号|名称|
 |:-:|:-:|
 |1|[基本 IO](Java/IO/IO.md)|
 |2|[NIO](Java/IO/NIO.md.md)|
 
-<h3 id="java_con">3. Java 并发编程 模块</h3>
+<h3 id="java_con">Java 并发编程 模块</h3>
 
 |编号|名称|
 |:-:|:-:|
@@ -71,7 +71,7 @@
 |2|[并发容器]()|
 |3|[原子类]()|
 
-<h3 id="java_collection">4. Java 集合框架 模块</h3>
+<h3 id="java_collection">Java 集合框架 模块</h3>
 
 |编号|名称|
 |:-:|:-:|
@@ -149,8 +149,13 @@
 
 <h2 id="JVM">5、JVM虚拟机</h2>
 
-1. [JVM概述](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/1.Java%E5%9F%BA%E6%9C%AC%E6%A6%82%E8%BF%B0.md)
-2. [Java内存区域和内存溢出异常](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/2.Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%92%8C%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8.md)
+|编号|名称|
+|:-:|:-:|
+|1|[JVM概述](JVM/1.Java基本概述.md)|
+|2|[Java内存区域和内存溢出异常](JVM/2.Java内存区域和内存溢出异常.md)|
+|3|[]()|
+|4|[]()|
+
 3. [垃圾收集器与内存分配策略](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/3.%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8%E4%B8%8E%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5.md)
 4. [类文件结构](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/5.%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.md)
 5. [虚拟机类加载机制](https://github.com/Shouheng88/Java-Programming/blob/master/JVM/6.%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6.md)
