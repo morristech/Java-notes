@@ -155,11 +155,11 @@
 |2|[Java内存区域和内存溢出异常](JVM/2.Java内存区域和内存溢出异常.md)|
 |3|[垃圾收集器与内存分配策略](JVM/3.垃圾收集器与内存分配策略.md)|
 |4|[类文件结构](JVM/5.类文件结构.md)|
-|4|[虚拟机类加载机制](JVM/6.虚拟机类加载机制.md)|
-|4|[虚拟机字节码执行引擎](JVM/7.虚拟机字节码执行引擎.md)|
-|4|[Java内存模型与线程](JVM/8.Java内存模型与线程.md)|
-|4|[虚拟机性能监控与故障分析工具](JVM/4.虚拟机性能监控与故障分析工具.md)|
-|4|[Eclipse Memory Analyzer 的使用](JVM/Eclipse Memory Analyzer 使用.md)|
+|5|[虚拟机类加载机制](JVM/6.虚拟机类加载机制.md)|
+|6|[虚拟机字节码执行引擎](JVM/7.虚拟机字节码执行引擎.md)|
+|7|[Java内存模型与线程](JVM/8.Java内存模型与线程.md)|
+|8|[虚拟机性能监控与故障分析工具](JVM/4.虚拟机性能监控与故障分析工具.md)|
+|9|[Eclipse Memory Analyzer 的使用](JVM/EclipseMemoryAnalyzer使用.md)|
 
 <h2 id="database">6、数据库</h2>
 
